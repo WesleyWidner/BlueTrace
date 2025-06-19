@@ -17,6 +17,20 @@ Collecting user activity and system configuration data without relying on third-
 
 Auditing endpoint hygiene, browser usage, logon history, or USB connections.
 
+Artifacts Collected
+System Info, Installed Programs, Environment Variables, UAC Settings, Windows Version,
+File Metadata, Alternate Data Streams, Hidden Files, Scheduled Tasks, Setup Logs,
+PowerShell Logs, PowerShell Operational Logs, NTUSER.DAT, RecentDocs, UserAssist,
+ShellBags, TypedPaths, RunMRU, Jump Lists, Clipboard History, Account Lockouts,
+Credential Manager, Local Users, Local Groups, Whoami Groups, MAC Addresses,
+Hosts File, Firewall Rules, DNS Cache, ARP Cache, Logon Events, BAM/DAM Activity,
+Netstat Connections, Browser History, Browser Cache Presence, Browser Search Terms,
+Browser Cookies, Prefetch Files, Amcache.hve, RecentFileCache.bcf, USRCLASS.DAT,
+SRUDB, SAM Hive, SYSTEM Hive, SOFTWARE Hive, SECURITY Hive, Downloads Folder,
+USB History, LNK Files
+
+
+
 
 Section 0: Output Setup
 
