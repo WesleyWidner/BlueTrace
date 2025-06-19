@@ -18,6 +18,7 @@ Collecting user activity and system configuration data without relying on third-
 Auditing endpoint hygiene, browser usage, logon history, or USB connections.
 
 Artifacts Collected
+
 System Info, Installed Programs, Environment Variables, UAC Settings, Windows Version,
 File Metadata, Alternate Data Streams, Hidden Files, Scheduled Tasks, Setup Logs,
 PowerShell Logs, PowerShell Operational Logs, NTUSER.DAT, RecentDocs, UserAssist,
