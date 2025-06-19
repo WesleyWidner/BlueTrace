@@ -2,9 +2,11 @@
 DFIR Blue Team Tool
 
 Introduction
+
 The Combined DFIR PowerShell Script is a comprehensive Windows forensic collection tool developed by Wesley Widner (White Hat Wes) for blue teamers, SOC analysts, and digital forensic responders. It automates the acquisition of critical system and user-level artifacts, preparing them for immediate review in Excel and CSV formats. This script is tailored for live triage, incident response, and timeline reconstruction scenarios.
 
 Use Case
+
 You should use this script when:
 
 Performing live incident response on compromised systems.
