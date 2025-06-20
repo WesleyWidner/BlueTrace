@@ -2,6 +2,10 @@ Download SQLite through the following link:
 
 https://system.data.sqlite.org/downloads/1.0.119.0/sqlite-netFx46-setup-x64-2015-1.0.119.0.exe
 
+Download ─ System.Data.SQLite.dll and SQLite.Interop.dll at the following link: 
+
+https://system.data.sqlite.org/downloads/1.0.119.0/sqlite-netFx46-binary-x64-2015-1.0.119.0.zip
+
 The file structure should be as follows: 
 
 C:\BlueTrace\
