@@ -1,0 +1,37 @@
+# 🧠 Section 44: net user Output (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section gathers a list of all local user accounts configured on the Windows system by running the `net user` command. The presence of unexpected or unauthorized user accounts can indicate misconfiguration or potential adversary activity.
+
+The script:
+- Executes the `net user` command to list all user accounts on the system
+- Parses the output to extract each username
+- Records the date and time each account was collected
+- Outputs the collected data into the **Net User** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Username`: The name of a local user account found on the system
+- `Collected`: Date and time the user account was recorded (YYYY-MM-DD HH:MM:SS)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Unauthorized Account Detection**:
+  - Identifies accounts that may have been created or modified as part of attacker activity.
+- **Privilege Review**:
+  - Supports auditing for dormant, legacy, or privileged accounts that could be leveraged in an attack.
+- **Baseline Comparison**:
+  - Helps compare the current account state against known-good baselines or prior inventories.
+- **Incident Scoping**:
+  - Detects changes to user accounts during the timeline of an incident.
+
+## ⚠️ Notes
+
+- Only local user accounts are captured; domain accounts are not included.
+- The script only collects usernames, not detailed account attributes or group memberships.
+- Errors or failures in command execution are reported as `"ERROR"` in the output.
+
+> 🔍 *Reviewing local user accounts is a key step in identifying unauthorized access and establishing incident scope in forensic investigations.*
