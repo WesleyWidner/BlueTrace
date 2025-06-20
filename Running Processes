@@ -1,0 +1,42 @@
+# --- Section 15: Running Processes ---
+Write-Progress -Activity "Collecting Running Processes" -Status "Running"
+
+$processList = @()
+
+try {
+    Get-Process | ForEach-Object {
+        $proc = $_
+        $name = $proc.Name
+        $id   = $proc.Id
+
+        # Initialize fallback values
+        $path = "ACCESS_DENIED"
+        $startTime = "ACCESS_DENIED"
+
+        try {
+            if ($proc.PSObject.Properties.Match('Path')) {
+                $path = $proc.Path
+            }
+        } catch {
+            Write-Warning "Access denied to path for process: $name ($id)"
+        }
+
+        try {
+            $startTime = $proc.StartTime.ToString("yyyy-MM-dd HH:mm:ss")
+        } catch {
+            Write-Warning "Access denied to start time for process: $name ($id)"
+        }
+
+        $processList += [PSCustomObject]@{
+            Name      = $name
+            Id        = $id
+            Path      = $path
+            StartTime = $startTime
+        }
+    }
+
+    $processList = $processList | Sort-Object StartTime
+    Save-ToExcelSheet -SheetName "Running Processes" -Data $processList
+} catch {
+    Write-Warning "Failed to enumerate running processes: $_"
+}
