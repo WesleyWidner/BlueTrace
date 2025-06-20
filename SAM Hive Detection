@@ -1,0 +1,38 @@
+# 🧠 Section 63: SAM Hive Detection (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section checks for the existence of the Windows **SAM (Security Account Manager) hive**, a critical registry file that stores user account information and hashed credentials. The SAM hive is essential for both system authentication and forensic analysis of user and password data.
+
+The script:
+- Verifies the presence of the `SAM` hive at the standard path (`System32\config\SAM`)
+- Records the hive name, path, existence status, and analysis notes
+- Outputs the results into the **SAM Hive** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Hive`: The name of the hive (always "SAM")
+- `Path`: The file system path to the hive
+- `Exists`: Whether the file was found (`Yes` or `No`)
+- `Note`: Analysis instructions or status notes
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Credential & Account Analysis**:
+  - Confirms availability of the SAM hive for post-mortem analysis of account data and password hashes.
+- **Privilege Escalation & Persistence Detection**:
+  - Supports investigation of user additions, privilege changes, or backdoor accounts.
+- **Hash Extraction & Offline Attacks**:
+  - Informs analysts that the hive can be extracted and parsed with tools like `reg save`, `secretsdump.py`, or similar utilities for password hash retrieval and analysis.
+- **Chain of Custody Documentation**:
+  - Provides clear documentation of SAM hive status as part of forensic imaging and evidence acquisition.
+
+## ⚠️ Notes
+
+- The SAM hive is in a **binary format** and requires specialized tools for analysis.
+- File access may be restricted by system permissions or file locks; consider live or shadow copy extraction techniques.
+- Absence of the file may indicate tampering or a non-standard Windows installation.
+
+> 🔍 *The SAM hive is a cornerstone artifact for user and credential forensics—always confirm its presence and integrity as part of incident response and forensic triage.*
