@@ -1,0 +1,46 @@
+# 🧬 Section 27: DLL Search Order Hijacks (DFIR Enhanced)
+
+## 🧾 What the Code Does
+
+This section analyzes directories commonly included in the **Windows DLL search order** to detect **potential DLL hijacks**. It recursively scans for `.dll` files in these locations, gathers metadata, checks digital signatures, and flags suspicious entries based on location and signing status.
+
+Results are exported to an Excel worksheet titled **"DLL Search Order"**.
+
+## 📦 What It Extracts
+
+For each `.dll` file found in the targeted directories, the script records:
+
+- **DLLName**: The file name (e.g., `userenv.dll`).
+- **Path**: Full file path on the system.
+- **LastWritten**: Timestamp of the last write (modification).
+- **SHA256**: Hash of the file for integrity and threat intelligence checks.
+- **IsSigned**: Boolean indicating whether the DLL has a valid digital signature.
+- **SignatureStatus**: Status of the digital signature (e.g., `Valid`, `NotSigned`, `CheckFailed`).
+- **Publisher**: The digital certificate's subject (if available).
+- **Suspicious**: Boolean flag set to `True` if:
+  - The DLL is located in a user-writeable directory (e.g., `AppData`, `Temp`)
+  - The DLL is unsigned
+
+Scanned directories include:
+- `%SystemRoot%`
+- `%SystemRoot%\System32`
+- `%TEMP%`
+- `%APPDATA%`
+- `%USERPROFILE%\AppData\Local`
+- `%ProgramData%`
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Hijack Detection**: DLLs placed in paths earlier in the search order than expected locations can be loaded maliciously in place of legitimate binaries.
+- **File Integrity Verification**: Hashes and signature checks help determine whether DLLs have been replaced or altered.
+- **Persistence Hunting**: Attackers may drop malicious DLLs into commonly searched directories to maintain stealthy persistence (especially when paired with renamed processes).
+- **Privilege Escalation & Lateral Movement**: DLL hijacking can allow code execution with higher privileges if loaded by a SYSTEM or admin process.
+- **Time-Based Correlation**: `LastWritten` timestamps help place file drops into a timeline with other events like user logins, command execution, or suspicious task creation.
+
+## ⚠️ Notes
+
+- Windows loads DLLs based on a well-defined but complex **search order**. Placement in user-writeable locations ahead of trusted paths is often a red flag.
+- Unsigned DLLs in system directories are not always malicious (e.g., legacy software), but context and validation are essential.
+- Some legitimate software may use intentionally unsigned or side-loaded DLLs—manual analysis is recommended for high-signal entries.
+
+> 🧱 *DLL search order hijacking is a subtle but powerful technique to redirect code execution. This section brings visibility to a vector that’s often exploited and rarely detected without deep inspection.*
