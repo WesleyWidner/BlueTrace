@@ -1,0 +1,44 @@
+# 🛠️ Section 24: Services (DFIR Enhanced + Signature Check)
+
+## 🧾 What the Code Does
+
+This section enumerates all **Windows services** and enriches each entry with security-relevant metadata for **Digital Forensics and Incident Response (DFIR)**. It extracts binary paths, performs SHA256 hashing, validates digital signatures, and flags suspicious indicators based on path, script extensions, and signature status.
+
+The results are exported to an Excel worksheet titled **"Services"**.
+
+## 📦 What It Extracts
+
+For each service (`Win32_Service`), the script captures:
+
+- **Name**: Internal service name.
+- **DisplayName**: Friendly display name.
+- **State**: Current status (e.g., Running, Stopped).
+- **StartMode**: How the service is triggered (e.g., Auto, Manual, Disabled).
+- **PathName**: Raw command used to start the service (may include switches or DLL wrappers).
+- **Executable**: Cleaned and extracted path to the `.exe` (if present).
+- **SHA256**: File hash for the executable (if resolvable).
+- **IsSigned**: Boolean indicating if the executable has a valid digital signature.
+- **SignatureStatus**: Signature result (`Valid`, `NotSigned`, `UnknownError`, etc.).
+- **Publisher**: Certificate Subject of the signer (if applicable).
+- **Suspicious**: Boolean flag indicating potential abuse based on:
+  - Location in suspicious directories (`AppData`, `Temp`, `Roaming`, `Downloads`)
+  - Use of script extensions or loader mechanisms (`.bat`, `.ps1`, `rundll32.exe`)
+  - Unsigned executables
+- **Description**: Descriptive string from the service metadata (if available).
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Persistence Mechanism Detection**: Services are a prime method for attackers to achieve reboot persistence under SYSTEM or service accounts.
+- **Malicious Binary Discovery**: Services pointing to unsigned binaries or executables in non-standard directories can indicate malware or trojans.
+- **Signature Validation**: Helps differentiate trusted system components from unverified third-party or malicious services.
+- **Binary Origin Attribution**: The `Publisher` field provides insight into who signed the service binary, if at all—useful for trust evaluation.
+- **Abuse Pattern Analysis**: Use of interpreters (`rundll32.exe`) or loaders for scripts (`.vbs`, `.ps1`) often signals abuse.
+
+## ⚠️ Notes
+
+- Some services may use quoted paths with arguments, making path parsing essential.
+- Legitimate third-party software may also lack signatures—review in context.
+- Unsigned or script-based services in user-writeable paths are especially high-risk.
+- Requires administrative privileges for full visibility across system services.
+
+> 🧩 *Windows services often provide the attacker with stealth, persistence, and privilege. This section provides high-fidelity visibility into each service’s origin, trustworthiness, and DFIR relevance.*
