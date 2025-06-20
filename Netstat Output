@@ -1,0 +1,40 @@
+# 🧠 Section 54: Netstat Output (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects and parses the output of the `netstat -ano` command, which displays all active TCP and UDP network connections along with their process identifiers (PIDs). Reviewing netstat data helps analysts identify live network communications, potential C2 channels, data exfiltration, and unauthorized remote access.
+
+The script:
+- Runs `netstat -ano` and filters lines containing `TCP` or `UDP`
+- Parses each entry to extract the protocol, local address, foreign address, connection state, and PID
+- Handles both standard and abbreviated UDP output formats
+- Outputs the collected data into the **Netstat** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Protocol`: The protocol in use (`TCP` or `UDP`)
+- `LocalAddress`: The local IP address and port
+- `ForeignAddress`: The remote IP address and port (destination)
+- `State`: Connection state (e.g., `LISTENING`, `ESTABLISHED`, or `N/A` for UDP)
+- `PID`: The process ID associated with the connection
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Live Network Connection Mapping**:
+  - Reveals all active and listening network connections on the system.
+- **Malicious or Suspicious Connection Detection**:
+  - Identifies unauthorized remote connections, possible data exfiltration paths, or command-and-control channels.
+- **Process Attribution**:
+  - Associates network activity with specific processes using the PID for deeper investigation.
+- **Incident Response & Containment**:
+  - Supports rapid scoping of compromised hosts and detection of attacker-controlled sessions.
+
+## ⚠️ Notes
+
+- Only active connections at the time of collection are reported; terminated or short-lived connections may not appear.
+- PIDs can be cross-referenced with process listings to identify suspicious applications.
+- Firewalls or network address translation may obscure some connection details.
+
+> 🔍 *Netstat output is a foundational artifact for detecting live threats, scoping network exposure, and attributing network activity to specific processes during an incident response.*
