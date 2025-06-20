@@ -1,0 +1,38 @@
+# 🧠 Section 60: RecentApps (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects entries from the Windows **RecentApps** registry key, which tracks applications and executables recently accessed by the user through Windows Search. This artifact helps investigators reconstruct recent user activity and identify program execution not logged elsewhere.
+
+The script:
+- Checks for the existence of the `RecentApps` registry key under the current user's profile
+- Enumerates all subkeys, each representing a recently accessed application
+- Extracts the AppID, executable path, and last access time for each entry
+- Outputs the collected data into the **RecentApps** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `AppID`: The identifier for the recent app entry
+- `Executable`: The path or name of the executable
+- `LastAccessTime`: The last recorded access time for the application
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Recent Activity Reconstruction**:
+  - Reveals which applications were recently launched by the user, even if other logs or jump lists have been cleared.
+- **Suspicious Program Identification**:
+  - Helps identify unauthorized, unknown, or malicious executables run by the user.
+- **Timeline Enrichment**:
+  - Provides additional time-based context for investigative timelines, supporting correlation with other forensic artifacts.
+- **User Intent Analysis**:
+  - Sheds light on the user's recent actions, including legitimate work or suspicious activity.
+
+## ⚠️ Notes
+
+- This artifact is user-specific; run the script in the context of the user of interest for complete results.
+- If no RecentApps entries exist, a placeholder record is generated to indicate the absence of data.
+- Some application launches may not be recorded if performed outside of Windows Search or if privacy controls are enabled.
+
+> 🔍 *RecentApps entries are a valuable source for uncovering recent user activity and complementing other program execution artifacts during forensic investigations.*
