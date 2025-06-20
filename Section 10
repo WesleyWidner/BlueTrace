@@ -1,0 +1,33 @@
+# 📆 Section 10: Files Accessed in Last 30 Days
+
+## 🧾 What the Code Does
+
+This section scans the entire `C:\` drive recursively for **files that have been accessed within the past 30 days**. It filters files based on their `LastAccessTime` metadata and collects key timestamps and size data for each qualifying file. The results are stored in an array and intended for export (though not shown in this snippet, you can use `Save-ToExcelSheet` as with prior sections).
+
+It uses `Write-Progress` for real-time feedback and includes error handling to skip inaccessible files or directories.
+
+## 📦 What It Extracts
+
+For every file accessed in the last 30 days, the script captures:
+
+- **FullName**: Full file path.
+- **LastAccessTime**: The most recent time the file was opened or read.
+- **SizeKB**: File size in kilobytes (rounded to two decimal places).
+- **LastWriteTime**: The last time the file’s content was modified.
+- **Created**: When the file was originally created.
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **User Activity Reconstruction**: Helps identify which files have been actively accessed, suggesting interaction by a user or a process.
+- **Insider Threat Investigation**: Flags recently accessed sensitive or restricted files, especially if access does not align with user responsibilities.
+- **Exfiltration Detection**: Recently accessed files may be candidates for staging, compression, or exfiltration, especially if accessed shortly before unusual network activity.
+- **Behavioral Profiling**: Supports the construction of user behavior timelines or attacker dwell time analysis.
+- **Persistence & Tool Usage**: Can reveal the recent use of utilities, scripts, or binaries that have otherwise been deleted or moved.
+
+## ⚠️ Notes
+
+- `LastAccessTime` may not be reliably updated if NTFS access time tracking is disabled (a performance optimization in many Windows environments).
+- Full scan of `C:\` can be resource-intensive and time-consuming, particularly on large volumes or systems with many small files.
+- Run as Administrator to maximize file visibility and reduce access-denied errors.
+
+> ⏱️ *Recently accessed file metadata is a vital thread in the forensic narrative—pointing directly to interaction, intent, and potentially malicious actions.*
