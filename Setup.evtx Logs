@@ -1,0 +1,49 @@
+# 🔧 Section 31: Setup.evtx Logs (DFIR Enhanced)
+
+## 📌 What the Code Does
+
+This section collects the **200 most recent entries** from the **Windows Setup Event Log** (`Setup.evtx`). It enhances log parsing by interpreting known `EventID`s and extracting any mentioned **KB (Knowledge Base)** article numbers, typically representing system or feature updates.
+
+The collected data is saved to the `Setup Log` worksheet in the final Excel output.
+
+## 📋 What It Extracts
+
+Each log entry includes:
+
+- **TimeCreated**: When the setup event occurred.
+- **EventID**: Numerical ID of the setup-related event.
+- **EventIDMeaning**: Translated label for known setup-related event types.
+- **KB**: Extracted KB identifier from the log message (e.g., `KB5032000`).
+- **Level**: Log severity (Information, Warning, Error).
+- **Message**: Cleaned message for readability.
+
+### Recognized EventID Mappings:
+- `1`: Setup started
+- `2`: Setup completed
+- `3`: Setup failed
+- `4`: Restore started
+- `5`: Restore completed
+- `6`: Restore failed
+- `30102`: Feature Update Started
+- `30103`: Feature Update Completed
+- `30104`: Feature Update Failed
+- `20000`: Windows Update install
+
+## 🔎 How It Can Be Used by Digital Forensic Analysts
+
+- **Update Verification**:
+  - Helps validate if recent updates (especially feature upgrades) occurred before or after suspicious behavior.
+- **Rollback Tracking**:
+  - Restore events (`4`, `5`, `6`) are critical during recovery operations or ransomware investigations.
+- **Patch Impact Assessment**:
+  - Extracted `KB` identifiers enable cross-reference with known vulnerabilities or exploit mitigations.
+- **Failure Forensics**:
+  - Failed setup or update attempts may indicate tampering, corruption, or malware interference.
+
+## ⚠️ Notes
+
+- Requires Administrator privileges to read `Setup.evtx`.
+- KB extraction assumes presence of standard KB formatting in the log message.
+- Consider correlating with `System` and `Security` logs for deeper analysis.
+
+> 🛠 *Setup logs don’t just track installations—they timestamp system modifications, update failures, and recovery attempts. They’re essential for timeline reconstruction post-incident.*
