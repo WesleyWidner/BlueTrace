@@ -1,0 +1,38 @@
+# 🔗 Section 14: Symbolic Links and Junctions
+
+## 🧾 What the Code Does
+
+This section scans the `C:\` drive recursively for **reparse points**, specifically focusing on **symbolic links** and **directory junctions**. These are special filesystem objects that redirect access to another location on the file system. The script captures key metadata for each link and stores the results in PowerShell objects for further analysis or export.
+
+It uses the `.Attributes` property to detect reparse points and the `.LinkType` property to differentiate between symbolic links, junctions, or mount points.
+
+## 📦 What It Extracts
+
+For each reparse point found, the script captures:
+
+- **FullName**: The full path to the symbolic link or junction.
+- **Attributes**: The file attributes, which include the `ReparsePoint` marker.
+- **LinkType**: The specific type of reparse point (e.g., `SymbolicLink`, `Junction`, `MountPoint`).
+
+The scan is conducted with:
+- `-Recurse`: Deep search into all subdirectories.
+- `-Force`: Includes hidden and system files.
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Evasion Technique Detection**: Symbolic links can be used by malware or attackers to:
+  - Redirect execution flow
+  - Bypass access controls
+  - Mask data movement (e.g., logs, payloads, dropped binaries)
+- **Persistence Mechanism Discovery**: Junctions or symlinks may point to hidden payloads, alternate script locations, or tools placed in less monitored areas.
+- **Filesystem Integrity Analysis**: Unexpected or misconfigured reparse points can indicate tampering or unintended configurations.
+- **Privilege Escalation Investigation**: Abusing reparse points in vulnerable services can enable privilege escalation (e.g., DLL hijacking via redirected paths).
+- **Mount Point Auditing**: Reparse points can also map directories to alternate volumes, complicating disk imaging and containment strategies.
+
+## ⚠️ Notes
+
+- On Windows, `LinkType` is only reliably available in PowerShell 5.1+ and when running with sufficient permissions.
+- Reparse points may exist on system-critical paths (e.g., `C:\Users\All Users`, which is a junction to `C:\ProgramData`).
+- Some symbolic links may be intentionally created by the OS or software vendors and should be baseline-audited before flagging as suspicious.
+
+> 🧵 *Symbolic links and junctions are powerful filesystem features that, when misused, can enable stealth, persistence, and evasion. This section helps identify them across the system landscape.*
