@@ -1,0 +1,40 @@
+# 🧠 Section 68: Downloads Folder Contents (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section enumerates the contents of the user's **Downloads** folder, including all files and subfolders. The Downloads folder is a common location for user-acquired files, installer packages, malicious payloads, and documents of forensic interest.
+
+The script:
+- Determines the user's Downloads folder path using the environment variable
+- Recursively lists all files within the Downloads folder and its subdirectories
+- Collects the file name, full path, size in kilobytes (rounded to two decimal places), and last modified timestamp for each file
+- If the folder is not found, records a placeholder entry
+- Outputs the collected data into the **Downloads** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Name`: The file name
+- `Path`: The full path to the file
+- `SizeKB`: The file size in kilobytes
+- `Modified`: The last modification time of the file
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Malware & Payload Detection**:
+  - Identifies potentially malicious, suspicious, or unauthorized files downloaded by the user.
+- **User Activity & Data Acquisition**:
+  - Provides insight into files acquired from the Internet or other sources and supports investigation of data exfiltration or policy violations.
+- **Timeline Construction**:
+  - Supports timeline reconstruction of user download and usage activity through file timestamps.
+- **Document & Evidence Collection**:
+  - Enables efficient identification and preservation of relevant files for forensic analysis or legal proceedings.
+
+## ⚠️ Notes
+
+- The script only collects file metadata and does not examine file contents.
+- Hidden, system, and protected files are included due to the use of the `-Force` parameter.
+- Absence of the Downloads folder may indicate user profile modifications, redirection, or limited activity.
+
+> 🔍 *The Downloads folder is a primary target for identifying user behavior, malicious payloads, and files of evidentiary value in forensic investigations.*
