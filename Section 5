@@ -1,0 +1,30 @@
+# 🪟 Section 5: Windows Version Info
+
+## 🧾 What the Code Does
+
+This section gathers key details about the Windows operating system version and installation from the target machine. It uses WMI via `Get-CimInstance` to query the `Win32_OperatingSystem` class, then formats and exports the results to an Excel sheet titled **"Windows Version"**.
+
+A helper function, `Safe-ToDateTime`, is used to convert DMTF-formatted WMI date strings (used for `InstallDate` and `LastBootUpTime`) into standard, human-readable datetime formats.
+
+## 📦 What It Extracts
+
+The following system-level details are collected:
+
+- **Caption**: Friendly name of the Windows edition (e.g., "Microsoft Windows 10 Pro").
+- **Version**: OS version number (e.g., `10.0.19045`).
+- **BuildNumber**: Specific Windows build (helps identify major/minor updates or insider versions).
+- **Architecture**: Indicates `32-bit` or `64-bit` OS architecture.
+- **InstallDate**: Date and time when the OS was installed (converted from WMI format).
+- **LastBootUpTime**: Timestamp of the most recent system boot (also WMI-converted).
+
+If the date is malformed or unavailable, the script safely returns `"Unavailable"` or `"Invalid Format"` to prevent errors during reporting.
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **System Timeline Construction**: `InstallDate` and `LastBootUpTime` provide anchors for when the system environment was first provisioned and last rebooted—crucial for event correlation.
+- **Version Verification**: Detects if the system is running a vulnerable or unsupported OS version, which may affect the risk level and the forensic toolset used.
+- **Patch-Level Investigation**: The combination of `BuildNumber` and `Version` helps determine whether critical patches are applied (useful when investigating known exploits).
+- **Environment Profiling**: Identifies OS architecture and edition, which may influence artifact locations, registry hives, or volatility settings for memory forensics.
+- **Anomaly Detection**: A mismatch between reported install date and known system build activities may indicate rollback, reinstallation, or obfuscation tactics.
+
+> 🧾 *This section delivers essential context about the host’s operating system, supporting both investigative baselining and advanced forensic correlation.*
