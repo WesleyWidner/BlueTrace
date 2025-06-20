@@ -1,0 +1,38 @@
+# 🧠 Section 71: SYSTEM Hive Check (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section checks for the existence of the Windows **SYSTEM registry hive**, which is a critical system file storing configuration information about hardware, services, drivers, and system settings. The SYSTEM hive is essential for both operational and forensic analysis, providing insight into device configuration and system state over time.
+
+The script:
+- Checks for the presence of the SYSTEM hive at the default path (`System32\config\SYSTEM`)
+- Records the hive name, path, existence status, and a note about its analysis requirements
+- Outputs the results into the **SYSTEM Hive** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Hive`: The name of the hive (always "SYSTEM")
+- `Path`: The full file system path to the SYSTEM hive
+- `Exists`: Whether the file was found (`Yes` or `No`)
+- `Note`: Additional analysis notes or recommendations
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **System Configuration & Timeline Analysis**:
+  - Verifies the availability of the SYSTEM hive for offline registry parsing and configuration analysis.
+- **Malware & Persistence Investigation**:
+  - Allows for review of service, driver, and startup configuration to detect persistence or tampering.
+- **Chain of Custody Documentation**:
+  - Provides documentation of the SYSTEM hive’s presence and status during evidence acquisition.
+- **Corroborating Artifact**:
+  - Supports cross-correlation with other registry hives for timeline and context enrichment.
+
+## ⚠️ Notes
+
+- The SYSTEM hive is a **binary registry file** and requires dedicated offline tools for detailed parsing and analysis.
+- File access may be restricted due to system permissions or file locks; live or shadow copy acquisition may be necessary.
+- If the hive is missing, it may indicate tampering, a non-standard installation, or system corruption.
+
+> 🔍 *The SYSTEM hive is a foundational artifact for Windows system investigations—always confirm its presence and preserve it for registry analysis.*
