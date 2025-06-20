@@ -1,0 +1,33 @@
+# 🧠 Final Section: Cleanup and Save (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This final section performs **cleanup and report saving operations** after all forensic data has been collected and written to the workbook. It ensures the resulting files are complete, properly formatted, and ready for analysis.
+
+The script:
+- Calls `Remove-DefaultSheets` to eliminate any default Excel sheets, leaving only the relevant forensic artifact data
+- Sets the Excel file format to `.xlsx` using the appropriate Open XML format code (`51`)
+- Saves the populated workbook to the specified output path (`$outputExcel`)
+- Closes the workbook and fully quits the Excel application to release resources
+- Outputs confirmation messages for the saved Excel and environment variable CSV files
+
+## 📋 What It Extracts
+
+No data is extracted in this section; instead, it finalizes and saves all previously collected forensic artifact data.
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Evidence Handling & Reporting**:
+  - Ensures a clean, consolidated Excel workbook containing all forensic artifacts for review, reporting, or legal proceedings.
+- **Data Integrity & Chain of Custody**:
+  - Guarantees all data is saved and no resources are left open, supporting evidence integrity.
+- **Workflow Automation**:
+  - Streamlines the evidence packaging process, minimizing manual steps and user error.
+
+## ⚠️ Notes
+
+- Excel and CSV files are saved to the output paths specified earlier in the script.
+- All resources (workbook, Excel COM object) are explicitly closed to prevent data loss or orphaned processes.
+- Confirmation messages provide the analyst with the output locations for the generated reports.
+
+> 🔍 *Proper cleanup and saving are critical for ensuring the completeness, integrity, and reliability of forensic evidence—never skip this step in your artifact collection workflow.*
