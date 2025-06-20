@@ -1,0 +1,37 @@
+# 🌲 Section 17: Process Tree
+
+## 🧾 What the Code Does
+
+This section builds a **process tree** using WMI (`Win32_Process`) to enumerate active processes and their metadata. For each process, it captures key attributes such as process ID, parent process ID, command line, start time, and executing user. It handles timestamp conversion, access issues, and null values gracefully.
+
+The collected data is stored as structured PowerShell objects and exported to an Excel worksheet titled **"Process Tree"**.
+
+## 📦 What It Extracts
+
+For each running process on the system, the script collects:
+
+- **Name**: The executable name of the process (e.g., `powershell.exe`, `svchost.exe`).
+- **PID**: Process ID.
+- **ParentPID**: Parent Process ID — helps map the hierarchy of spawned processes.
+- **CommandLine**: The full command used to launch the process, if available.
+- **StartTime**: The timestamp when the process was created (converted from WMI’s DMTF format).
+- **User**: The domain and username that owns the process context (e.g., `DOMAIN\User`).
+
+Processes with malformed timestamps or inaccessible owner information are flagged but still recorded with `"Unavailable"` in the corresponding field.
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Parent/Child Analysis**: Identifies suspicious child processes (e.g., `powershell.exe` spawned by `winword.exe`) which are often indicators of malware or macro-based exploitation.
+- **Persistence Detection**: Helps trace the origin of long-running or background processes that may have been launched at startup or by scheduled tasks.
+- **Command Line Review**: Reveals command-line arguments used in attacks (e.g., download cradles, encoded payloads, credential theft).
+- **User Attribution**: Maps processes back to specific users, providing insight into who executed what and when.
+- **Timeline Reconstruction**: Accurate `StartTime` values support event correlation with logs, network activity, or file system changes.
+- **Rootkit/Stealth Malware Detection**: Discrepancies between visible and hidden processes can be identified when cross-validated with other tools.
+
+## ⚠️ Notes
+
+- The WMI provider may occasionally fail or provide incomplete data, especially under high load or in hardened environments.
+- Process creation dates are pulled from WMI, which can differ slightly from kernel-level or EDR tools.
+- Command lines for system-level processes may be truncated or restricted depending on security settings.
+
+> 🌐 *The process tree is the backbone of behavioral forensics—allowing analysts to understand execution flow, user behavior, and attacker TTPs (tactics, techniques, and procedures).*
