@@ -1,0 +1,41 @@
+# 🧠 Section 75: Browser Search Terms (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section extracts **recent browser search terms** from Google Chrome and Microsoft Edge by directly querying their respective SQLite databases. It focuses on search activity from the last seven days, enabling analysts to reconstruct recent user intent and web research patterns.
+
+The script:
+- Locates browser profile history databases for Chrome and Edge
+- Executes a targeted SQL query to extract keyword search terms and their last-used timestamps
+- Excludes Firefox due to incompatible or unavailable schema for search term recovery by default
+- Aggregates results for all profiles and browsers checked
+- Outputs the collected data into the **Browser Search Terms** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `term`: The user’s search term as recorded in the browser
+- `LastUsed`: The timestamp (in human-readable format) of the last search using that term
+- `Browser`: The browser from which the term was recovered
+- `SourceDB`: The path to the database containing the record
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Intent & Behavior Analysis**:
+  - Reveals user intent, research topics, or potentially incriminating queries.
+- **Threat Activity Discovery**:
+  - Helps identify research or reconnaissance related to attack planning, data exfiltration, or illicit activity.
+- **Timeline Construction**:
+  - Correlates search activity with browsing history and other artifacts to reconstruct timelines.
+- **Incident Contextualization**:
+  - Assists in understanding user motives, actions, and possible involvement in an incident.
+
+## ⚠️ Notes
+
+- Only Chrome and Edge are supported in this section due to browser schema compatibility.
+- Search terms are extracted for the past seven days; adjust `$sevenDaysAgo` to change the time window.
+- Results depend on user profile activity, privacy settings, and anti-forensic actions.
+- Firefox search term collection may require different queries or add-on-based extraction.
+
+> 🔍 *Browser search terms provide a direct window into user intent, making them a high-value artifact for investigative analysis and incident response.*
