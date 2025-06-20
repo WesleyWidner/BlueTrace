@@ -1,0 +1,36 @@
+# 🧠 Section 38: TypedPaths (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section queries the `HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\TypedPaths` registry key. This key stores **manually entered paths** typed into the File Explorer address bar by a user.
+
+The script:
+- Verifies the key exists
+- Extracts all path entries (e.g., `url1`, `url2`, etc.)
+- Exports the results into the **TypedPaths** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `EntryName`: The registry value name (e.g., `url1`, `url2`, etc.)
+- `PathValue`: The actual file path or network location entered into File Explorer
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **User Intent**:
+  - TypedPaths reveal directories a user intended to navigate to, even if they were never opened.
+- **Hidden or Remote Locations**:
+  - Can expose access attempts to sensitive areas such as `\\network_share`, hidden folders, or `C:\$Recycle.Bin`.
+- **Corroborative Evidence**:
+  - Supports timeline reconstruction when combined with ShellBags, Jump Lists, and Prefetch artifacts.
+- **Suspicious Navigation**:
+  - Paths to removable media, script directories (`AppData`, `Temp`), or admin shares (`C$`, `ADMIN$`) can suggest data staging or exfiltration behavior.
+
+## ⚠️ Notes
+
+- This key only exists **per user** and reflects **manual input**, not navigation via clicking.
+- TypedPaths entries are **not timestamped**, so use them alongside other artifacts for timeline context.
+- To collect this for all users, the corresponding `NTUSER.DAT` hives must be loaded and parsed offline.
+
+> 🔍 *TypedPaths often contain the “smoking gun” — direct evidence of a user targeting a suspicious directory. Don’t overlook it.*
