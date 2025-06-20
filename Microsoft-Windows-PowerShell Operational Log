@@ -1,0 +1,41 @@
+# 🔍 Section 33: Microsoft-Windows-PowerShell/Operational Log (DFIR Enhanced)
+
+## 📌 What the Code Does
+
+This section queries the **Microsoft-Windows-PowerShell/Operational** event log to capture **advanced PowerShell execution data**, particularly useful for digital forensics. It collects the latest 100 events and maps critical `EventID`s to human-readable meanings. Results are saved to the `PS Operational Log` Excel sheet.
+
+## 📋 What It Extracts
+
+Each parsed log entry includes:
+
+- **TimeCreated**: When the event occurred.
+- **EventID**: Numeric identifier for the PowerShell activity.
+- **EventIDMeaning**: Descriptive label for the event type.
+- **Level**: Severity (e.g., Information, Error).
+- **Message**: Cleaned version of the original event message.
+
+### Recognized Event IDs:
+- `4100`: PowerShell Engine Lifecycle Error
+- `4103`: Pipeline Execution Started
+- `4104`: ScriptBlock Logging (Executed Code)
+- `4105`: Command Started
+- `4106`: Command Completed
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Code Execution Analysis**:
+  - `4104` logs show actual **PowerShell code executed**, which is crucial for identifying malicious scripts or living-off-the-land techniques.
+- **Command Lifecycle Reconstruction**:
+  - `4105` and `4106` help reconstruct the full lifecycle of PowerShell commands.
+- **Error Diagnosis**:
+  - `4100` provides insight into engine failures, potentially linked to tampering or crashes.
+- **Script Injection Detection**:
+  - Ideal for detecting in-memory script execution, reflective DLL injection, or encoded/obfuscated commands.
+
+## ⚠️ Notes
+
+- ScriptBlock Logging (`4104`) must be explicitly enabled via Group Policy or registry for full visibility.
+- This log is **not available by default** on all systems; it requires PowerShell logging to be configured.
+- Combine this with **Security** and **Windows PowerShell logs** for full PowerShell forensic coverage.
+
+> 🔒 *ScriptBlock logging is one of the most valuable log sources in DFIR for tracking adversarial PowerShell usage post-compromise.*
