@@ -1,0 +1,33 @@
+# 🖥️ Section 1: System Information
+
+## 🧾 What the Code Does
+
+This section collects a snapshot of critical system and user-level information and exports it to an Excel worksheet titled **"System Information"** using the previously defined `Save-ToExcelSheet` function. It also provides real-time feedback via a `Write-Progress` bar indicating that system information is being collected.
+
+## 📦 What It Extracts
+
+The following environment and system-level values are collected:
+
+- **Hostname**: The NetBIOS name of the computer (useful for asset tracking).
+- **UserDomain**: The domain or local group context under which the current user is operating.
+- **Username**: The current Windows account name executing the script.
+- **SID**: Security Identifier of the logged-in user (used in registry, file system ACLs, and forensic timelines).
+- **IsAdmin**: Boolean indicating whether the current user context has local administrator privileges.
+- **SystemTimeLocal**: Current local system date and time, formatted for consistency.
+- **SystemTimeUTC**: Coordinated Universal Time equivalent of system time—important for timestamp normalization across time zones.
+- **TimeZone**: Identifier for the system’s time zone (e.g., `Eastern Standard Time`).
+- **BootTime**: The last time the system was started (useful for uptime analysis and correlation with log data).
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Identity Attribution**: Knowing which user ran the script, under which privileges, is essential for understanding context and possible scope of access.
+- **Privilege Escalation Detection**: Verifies if the user context had elevated privileges, which could influence artifact visibility and security event interpretation.
+- **Time Normalization**: By capturing both local and UTC times, analysts can align system logs and correlate multi-host events accurately.
+- **System Uptime Validation**: `BootTime` helps analysts identify how long the system has been active, which is vital for:
+  - Determining the window of volatility
+  - Detecting forced reboots or crashes
+  - Establishing a timeline for malware persistence or insider activity
+
+- **Report Readiness**: Direct output to Excel in a clearly labeled sheet facilitates immediate inclusion in incident reports or case documentation.
+
+> 🧭 *This section acts as a digital fingerprint for the investigation environment—capturing identity, context, and timing to anchor the rest of the forensic timeline.*
