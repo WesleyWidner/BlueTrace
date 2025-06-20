@@ -1,0 +1,42 @@
+# 🧠 Section 76: Browser Cookies (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects **browser cookie data** from Google Chrome, Microsoft Edge, and Mozilla Firefox by directly querying each browser’s SQLite cookie database. It focuses on cookies accessed in the past seven days, providing insight into session persistence, authentication tokens, and recent site interactions.
+
+The script:
+- Locates all user browser profiles with cookie databases for Chrome, Edge, and Firefox
+- Executes tailored SQL queries to extract host, name, value, and last access timestamp for each cookie
+- Aggregates the results, tagging each record with its source browser and database file
+- Outputs the collected data into the **Browser Cookies** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `host_key` / `host`: The domain associated with the cookie
+- `name`: The name of the cookie
+- `value`: The content or value of the cookie
+- `LastAccess`: The last access timestamp (in human-readable format)
+- `Browser`: The browser from which the cookie was extracted
+- `SourceDB`: The database file containing the record
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Session & Authentication Tracking**:
+  - Reveals recent web sessions, authentication tokens, and persistent logins—potentially used for session hijacking or lateral movement.
+- **User Activity & Website Visitation**:
+  - Identifies recent website activity and possible account use on visited platforms.
+- **Data Exfiltration & Threat Analysis**:
+  - Detects tokens or cookie-based artifacts linked to data theft, phishing, or C2 activity.
+- **Incident Scope Expansion**:
+  - Assists in mapping breadth of web activity during incident response.
+
+## ⚠️ Notes
+
+- Cookie values may include sensitive session tokens; treat this data with care.
+- Only cookies accessed in the last seven days are retrieved (adjust `$sevenDaysAgo`/`$sevenDaysAgoFirefox` to change the window).
+- Some cookies may be encrypted or protected by the browser; decrypted values require additional steps.
+- Absence of records may indicate cookie clearing, privacy tools, or lack of browser use.
+
+> 🔍 *Browser cookies are a goldmine for user and session tracking—critical for web activity reconstruction and incident response in forensic investigations.*
