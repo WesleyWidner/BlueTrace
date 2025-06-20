@@ -1,0 +1,35 @@
+# 🧮 Section 13: Volume Shadow Copies
+
+## 🧾 What the Code Does
+
+This section enumerates **Volume Shadow Copies** (VSS)—point-in-time snapshots of disk volumes used for backup and recovery. It first attempts to query the `Win32_ShadowCopy` WMI class via `Get-CimInstance`. If that fails, it falls back to parsing the output of `vssadmin list shadows`.
+
+All successfully identified shadow copies are added to a collection and formatted into PowerShell objects for further processing or export (e.g., via `Save-ToExcelSheet -SheetName "Shadow Copies"`).
+
+## 📦 What It Extracts
+
+For each shadow copy found, the following metadata is collected:
+
+- **ID**: The unique Shadow Copy GUID.
+- **VolumeName**: The original volume path or label (e.g., `C:\`, `\\?\Volume{GUID}`).
+- **InstallDate**: The date/time the snapshot was created.
+
+The script supports two retrieval methods:
+1. **Primary (WMI via CIM)**: Reliable, structured access (preferred).
+2. **Fallback (`vssadmin`)**: Parses command-line output if WMI fails.
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Historical Evidence Recovery**: Shadow copies may contain previous versions of files, registry hives, or deleted data critical to an investigation.
+- **Tamper Detection**: Comparing current files to shadow copy versions can reveal unauthorized modifications or deletions.
+- **Ransomware Response**: Determines whether clean pre-encryption versions of files exist and can be restored.
+- **Persistence Tracing**: Malicious persistence mechanisms may leave artifacts in prior system states even if removed from the current image.
+- **Forensic Imaging Strategy**: Analysts can mount or extract from shadow copies to minimize tampering with the live system and preserve historical state.
+
+## ⚠️ Notes
+
+- Shadow copy enumeration often **requires elevated privileges**. Run the script as Administrator to ensure full access.
+- `vssadmin` may be disabled or restricted on hardened or enterprise systems.
+- Not all systems have Volume Shadow Copies enabled or scheduled—results may be empty.
+
+> 🕰️ *Shadow copies are snapshots of the past—containing data that may have since been altered, encrypted, or deleted. For digital forensics, they represent a valuable forensic time machine.*
