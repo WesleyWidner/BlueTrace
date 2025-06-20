@@ -1,3 +1,6 @@
+# Blue Trace © 2025 Wesley Widner – All rights reserved.
+# Licensed under the Blue Trace Proprietary License. No modification, redistribution, or commercial use allowed.
+
 ###################################################################################################################################
 
 
