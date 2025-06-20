@@ -1,0 +1,39 @@
+# 🧠 Section 55: ipconfig /displaydns (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects and parses DNS cache entries using the `ipconfig /displaydns` command. The DNS cache contains recently resolved domain names, providing visibility into hosts and domains the system has attempted to contact, which can be valuable for network forensics and threat hunting.
+
+The script:
+- Executes `ipconfig /displaydns` and filters for relevant record fields
+- Parses each DNS cache entry into its components: record name, record type, time to live (TTL), and data (such as resolved IP addresses)
+- Handles errors gracefully, skipping malformed entries
+- Outputs the collected data into the **ipconfig_dns** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `RecordName`: The domain or host name that was resolved
+- `RecordType`: The type of DNS record (e.g., `A`, `CNAME`, `AAAA`, etc.)
+- `TTL`: The time-to-live value for the DNS entry (in seconds)
+- `Data`: The resolved IP address or related data for the entry
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Recent Domain Activity**:
+  - Reveals which domains or hosts the system has tried to contact, even if browser history is deleted.
+- **Threat Hunting**:
+  - Supports detection of connections to suspicious, malicious, or attacker-controlled domains.
+- **Timeline Enrichment**:
+  - Helps correlate system activity and user actions with observed network events.
+- **Attribution & Infrastructure Mapping**:
+  - Assists in mapping adversary infrastructure and identifying pivot points in an investigation.
+
+## ⚠️ Notes
+
+- The DNS cache is volatile and may be cleared on system reboot or via manual commands.
+- Only entries visible at the time of collection are included; expired or purged entries will not appear.
+- Some applications may use their own DNS resolution and may not be reflected in the system cache.
+
+> 🔍 *Analyzing DNS cache entries can provide leads on user activity, attacker infrastructure, and network anomalies, even in the absence of other network logs.*
