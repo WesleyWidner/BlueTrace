@@ -1,0 +1,38 @@
+# 🧠 Section 47: MAC Addresses (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section gathers information on all active physical network adapters, focusing on their **MAC (Media Access Control) addresses**. MAC addresses are unique identifiers assigned to network interfaces and are useful in device tracking, network investigations, and establishing asset provenance.
+
+The script:
+- Uses `Get-NetAdapter -Physical` to enumerate all physical network adapters
+- Filters for adapters with a status of "Up" (currently active)
+- Extracts the adapter name (InterfaceAlias), MAC address, and link speed for each relevant adapter
+- Outputs the collected data into the **MAC Addresses** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `InterfaceAlias`: The display name of the network interface (adapter name)
+- `MACAddress`: The unique hardware address of the adapter
+- `LinkSpeed`: The speed of the network link for the adapter
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Asset Identification & Tracking**:
+  - MAC addresses can help tie a specific physical device to network traffic or incident data.
+- **Network Investigations**:
+  - Useful for correlating DHCP logs, firewall logs, or ARP tables with host investigations.
+- **Device Inventory & Change Detection**:
+  - Supports asset management and detection of new or unauthorized network hardware.
+- **Lateral Movement & Rogue Device Detection**:
+  - Identifies unexpected or suspicious adapters that could be used for data exfiltration or persistence.
+
+## ⚠️ Notes
+
+- Only physical adapters with an "Up" status are recorded; virtual, disabled, or disconnected adapters are excluded.
+- MAC addresses may be spoofed or changed by adversaries, so corroborate with other evidence.
+- Any errors encountered during data collection are reported as `"ERROR"` in the `InterfaceAlias` field.
+
+> 🔍 *MAC address artifacts are essential for tying network activity to physical devices and supporting comprehensive network forensics.*
