@@ -1,0 +1,38 @@
+# 🧠 Section 46: whoami /groups Output (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section enumerates the group memberships and related security identifiers (SIDs) for the currently logged-in user by executing the `whoami /groups` command. This information reveals all security groups the user belongs to, which directly impacts permissions, access rights, and potential for privilege escalation.
+
+The script:
+- Runs the `whoami /groups` command and parses its output
+- Extracts each group name, corresponding SID, and any attributes (such as "Enabled", "Mandatory", "Owner", etc.)
+- Compiles all results into structured records for analysis
+- Outputs the collected data into the **Whoami Groups** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `GroupName`: The display name of the security group
+- `SID`: The Security Identifier associated with the group
+- `Attributes`: Any group membership attributes (e.g., "Enabled", "Mandatory", "Owner"); if none, reports "None"
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Privilege & Access Analysis**:
+  - Identifies which groups and associated privileges the user currently possesses, highlighting potential lateral movement or privilege escalation vectors.
+- **Account Misuse Detection**:
+  - Reveals excessive or unusual group memberships that may indicate misconfiguration or attacker manipulation.
+- **Incident Contextualization**:
+  - Correlates group membership with actions performed on the system to determine if elevated permissions were used in an attack.
+- **Baseline Verification**:
+  - Supports comparison to known-good user group baselines to detect unauthorized changes.
+
+## ⚠️ Notes
+
+- Only the group memberships for the account running the script are reported.
+- The script does not enumerate nested group memberships unless listed by `whoami /groups`.
+- Errors or failures during data retrieval are reported as `"ERROR"` with the error message included in the `Attributes` field.
+
+> 🔍 *Understanding user group memberships is critical for mapping access rights and investigating privilege escalation or lateral movement attempts.*
