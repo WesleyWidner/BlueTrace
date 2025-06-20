@@ -1,0 +1,36 @@
+# --- Section 3: Environment Variables ---
+Write-Progress -Activity "Collecting Environment Variables" -Status "Running"
+
+$envVars = @()
+
+# Collect user-scoped environment variables
+try {
+    [System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | ForEach-Object {
+        $envVars += [PSCustomObject]@{
+            Scope = "User"
+            Name  = $_.Key
+            Value = $_.Value
+        }
+    }
+} catch {
+    Write-Warning "Failed to collect user environment variables: $_"
+}
+
+# Collect system-scoped environment variables
+try {
+    [System.Environment]::GetEnvironmentVariables("Machine").GetEnumerator() | ForEach-Object {
+        $envVars += [PSCustomObject]@{
+            Scope = "System"
+            Name  = $_.Key
+            Value = $_.Value
+        }
+    }
+} catch {
+    Write-Warning "Failed to collect system environment variables: $_"
+}
+
+# Export to Excel
+Save-ToExcelSheet -SheetName "Environment Variables" -Data $envVars
+
+# Optional: Export all collected variables to CSV for flat review
+$envVars | Sort-Object Scope, Name | Export-Csv -Path $outputCsv -NoTypeInformation -Encoding UTF8
