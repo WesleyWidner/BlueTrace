@@ -1,0 +1,36 @@
+# 🧠 Section 62: SRUM Activity (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section checks for the presence of the Windows **SRUM** (System Resource Usage Monitor) database, `SRUDB.dat`. SRUM tracks detailed usage statistics about network connections, application activity, and system resources. The SRUM database can provide deep insight into user and process behavior over time.
+
+The script:
+- Verifies the existence of `SRUDB.dat` in the standard Windows SRUM directory
+- Records the file path and provides a note on its presence and analysis requirements
+- Outputs the results into the **SRUM** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `SRUDB_Path`: The full path to the `SRUDB.dat` file, or `"Not Found"` if missing
+- `Note`: Status message regarding the artifact and recommended analysis approach
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Behavioral Analysis**:
+  - Confirms the existence of SRUM data, which can be parsed for granular process, user, and network activity over time.
+- **Timeline and Attribution**:
+  - Supports correlation of SRUM data with other forensic artifacts for robust timeline reconstruction and activity attribution.
+- **Data Exfiltration & Persistence Detection**:
+  - May reveal long-term patterns of application usage, unusual network activity, or persistence mechanisms.
+- **Tool Guidance**:
+  - Informs analysts that SRUM requires external tools (e.g., SRUM-Dump, SQLite browsers) for meaningful parsing and analysis.
+
+## ⚠️ Notes
+
+- `SRUDB.dat` is an **ESE database** (Extensible Storage Engine); manual parsing is not practical without specialized tools.
+- The script does not attempt to parse or extract records from SRUM—only confirms the file's presence.
+- SRUM data may not be available on all systems, depending on Windows version and configuration.
+
+> 🔍 *SRUM data can be extremely valuable for long-term behavioral and network analysis, but always requires specialized tools for proper forensic review.*
