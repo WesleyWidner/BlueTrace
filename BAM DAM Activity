@@ -1,0 +1,38 @@
+# 🧠 Section 53: BAM/DAM Activity (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects activity from the Windows **Background Activity Moderator (BAM)** and **Desktop Activity Moderator (DAM)**, which track process execution activity on the system. The BAM/DAM registry entries can reveal which executables have been run and when they were last used—even when other execution logs are unavailable.
+
+The script:
+- Locates the BAM/DAM registry path under `HKLM:\SYSTEM\CurrentControlSet\Services\bam\UserSettings`
+- Enumerates all user SIDs and their associated executables within this path
+- Extracts the last used timestamp for each executable, converting it from Windows FILETIME to a human-readable format
+- Outputs the collected data into the **BAM_DAM** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `UserSID`: The security identifier (SID) of the user who executed the program
+- `Executable`: The name or path of the executable tracked by BAM/DAM
+- `LastUsed`: The last time the executable was run (UTC, formatted as YYYY-MM-DD HH:MM:SS, or `"Unreadable Timestamp"` if conversion fails)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Process Execution Tracing**:
+  - Reveals programs and scripts executed by users, even after deletion or log clearing.
+- **User Attribution**:
+  - Associates execution activity with specific user SIDs for investigation or incident scoping.
+- **Timeline Reconstruction**:
+  - Provides additional temporal data points for process execution and user behavior analysis.
+- **Persistence & Attack Surface Mapping**:
+  - Detects suspicious or anomalous executables that may indicate persistence mechanisms or malware activity.
+
+## ⚠️ Notes
+
+- BAM/DAM only tracks processes in specific scenarios (e.g., Modern/Universal Windows apps or when enabled by system policy).
+- Some timestamps may be unreadable or corrupted; these are flagged accordingly.
+- The path and availability of BAM/DAM data may vary by Windows version.
+
+> 🔍 *BAM/DAM activity is a powerful but often overlooked artifact for building an execution timeline and attributing process activity to specific users during forensic investigations.*
