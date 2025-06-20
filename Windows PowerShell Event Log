@@ -1,0 +1,43 @@
+# 🔧 Section 32: Windows PowerShell Event Log (DFIR Enhanced)
+
+## 📌 What the Code Does
+
+This section parses the **Windows PowerShell operational event log** (`Windows PowerShell`) to retrieve and interpret the **last 100 PowerShell-related events** on the system. It enriches the data with human-readable interpretations of commonly encountered `EventID`s.
+
+Results are written to the `WinPS Log` worksheet in the final Excel report.
+
+## 📋 What It Extracts
+
+Each PowerShell log entry includes:
+
+- **TimeCreated**: Timestamp of when the event occurred.
+- **EventID**: Numeric identifier of the event.
+- **EventIDMeaning**: Human-readable description for recognized PowerShell events.
+- **Level**: Log severity level (e.g., Information, Warning, Error).
+- **Message**: Cleaned and flattened version of the raw event message.
+
+### Recognized EventID Mappings:
+- `400`: Engine Lifecycle State Changed
+- `403`: Command Started
+- `600`: Provider Initialized
+- `800`: Pipeline Execution Completed
+- `4035`: Module Loaded
+
+## 🔎 How It Can Be Used by Digital Forensic Analysts
+
+- **Script Execution Tracing**:
+  - Detects when PowerShell sessions were initiated, commands executed, or modules loaded—essential for identifying post-exploitation or lateral movement.
+- **Malicious Module Detection**:
+  - `4035` events help identify if suspicious or non-native modules (e.g., PowerView, Empire) were loaded.
+- **Execution Context Monitoring**:
+  - Aids in identifying unauthorized scripting activity, such as privilege escalation scripts or persistence mechanisms.
+- **Timeline Enrichment**:
+  - Useful in correlating PowerShell actions with other system logs like `Security` or `WMI`.
+
+## ⚠️ Notes
+
+- Admin privileges are usually required to access these logs.
+- This section does not parse logs from `Microsoft-Windows-PowerShell/Operational`, which may contain more granular script block logging.
+- Analysts should cross-reference Event IDs with known attack behaviors (e.g., MITRE ATT&CK T1059.001).
+
+> 🛠 *PowerShell logs are a goldmine in forensic investigations, especially for detecting living-off-the-land techniques or adversary scripting activity.*
