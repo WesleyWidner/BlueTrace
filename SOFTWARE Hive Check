@@ -1,0 +1,38 @@
+# 🧠 Section 72: SOFTWARE Hive Check (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section checks for the existence of the Windows **SOFTWARE registry hive**, which stores configuration data for installed software, system policies, and application settings. The SOFTWARE hive is crucial for auditing application installation, persistence mechanisms, and system configuration.
+
+The script:
+- Checks for the presence of the SOFTWARE hive at the standard path (`System32\config\SOFTWARE`)
+- Records the hive name, full file path, existence status, and notes about analysis requirements
+- Outputs the results into the **SOFTWARE Hive** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Hive`: The name of the hive (always "SOFTWARE")
+- `Path`: The full file path to the SOFTWARE hive
+- `Exists`: Whether the file was found (`Yes` or `No`)
+- `Note`: Additional guidance or notes about the artifact
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Installed Software & Application Review**:
+  - Enables comprehensive review of installed applications, system settings, and persistence mechanisms.
+- **Persistence & Tampering Detection**:
+  - Facilitates identification of malware, rogue services, or unauthorized changes in software configuration.
+- **Policy & Configuration Analysis**:
+  - Supports auditing of local and global policy settings, as well as software inventory.
+- **Chain of Custody Documentation**:
+  - Provides documentation of the SOFTWARE hive’s existence as part of forensic acquisition and evidence integrity.
+
+## ⚠️ Notes
+
+- The SOFTWARE hive is a **binary registry file**; detailed analysis requires offline registry parsing tools.
+- File access may require administrative privileges or may be restricted while Windows is running.
+- Absence of the hive may indicate system tampering or an unusual configuration.
+
+> 🔍 *The SOFTWARE hive is a cornerstone artifact for application and system configuration analysis in Windows forensic investigations—always preserve and parse this hive for comprehensive evidence.*
