@@ -1,0 +1,38 @@
+# 🧠 Section 51: ARP Cache (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects and parses the system’s **ARP (Address Resolution Protocol) cache**. The ARP cache maps local IP addresses to their corresponding MAC addresses on the same network, providing insight into recent or ongoing local network communications.
+
+The script:
+- Runs the `arp -a` command to display the ARP table
+- Filters output lines for valid entries (those beginning with an IP address)
+- Splits each entry into columns: IP address, MAC address, and entry type (e.g., "dynamic" or "static")
+- Outputs the collected data into the **ARP Cache** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `IPAddress`: The IP address on the local network
+- `MACAddress`: The hardware (MAC) address associated with the IP address
+- `Type`: The ARP entry type (typically "dynamic" or "static")
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Network Mapping & Attribution**:
+  - Identifies devices that recently communicated on the local subnet, supporting host attribution and lateral movement analysis.
+- **Rogue Device Detection**:
+  - Highlights unexpected or suspicious devices present on the network at the time of collection.
+- **Spoofing & MITM Detection**:
+  - Reveals signs of ARP spoofing, man-in-the-middle attacks, or other network manipulation techniques.
+- **Incident Correlation**:
+  - Correlates with DHCP logs, firewall events, or MAC address findings to build a comprehensive network timeline.
+
+## ⚠️ Notes
+
+- The ARP cache is volatile and only reflects recent communications; entries may be flushed or aged out quickly.
+- Only devices that communicated with the host (or responded to ARP requests) are listed.
+- Errors or collection failures are logged with a warning message.
+
+> 🔍 *Analyzing the ARP cache is a fast way to map live network peers and detect anomalies in the local network environment.*
