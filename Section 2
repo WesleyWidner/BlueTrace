@@ -1,0 +1,33 @@
+# 📦 Section 2: Installed Programs
+
+## 🧾 What the Code Does
+
+This section queries multiple Windows Registry paths to gather a comprehensive list of installed programs on the system, including both 64-bit, 32-bit, and per-user installations. It normalizes the output and exports the results to an Excel sheet labeled **"Installed Programs"**.
+
+The script provides progress feedback using `Write-Progress` and handles potential access or parsing issues with error-safe logic.
+
+## 📦 What It Extracts
+
+From the registry keys related to program uninstallation, the script extracts:
+
+- **DisplayName**: The name of the installed software as shown in Programs and Features.
+- **DisplayVersion**: The version number of the software.
+- **Publisher**: The software vendor or developer.
+- **InstallDate**: The installation date, normalized to `yyyy-MM-dd` format if provided in `yyyyMMdd`.
+
+Registry paths scanned:
+- `HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*` — 64-bit applications
+- `HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*` — 32-bit applications on 64-bit OS
+- `HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*` — Per-user installations
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Software Inventory Auditing**: Helps identify legitimate or unauthorized software installed on the host.
+- **Persistence Mechanism Detection**: Malware may install itself with misleading or generic names. Reviewing installed programs can reveal suspicious entries.
+- **Timeline Construction**: `InstallDate` supports event correlation with logs or artifacts (e.g., a malicious tool installed right before suspicious activity).
+- **Attribution and Threat Intelligence**:
+  - Cross-referencing software publishers against known good vendors
+  - Identifying tools used for lateral movement, privilege escalation, or data exfiltration
+- **Baseline Comparison**: Analysts can compare program lists across systems or against baseline builds to detect anomalies.
+
+> 🔍 *This section serves as a forensic inventory scan—critical for detecting unauthorized tools, analyzing attacker toolkits, and supporting breach investigations.*
