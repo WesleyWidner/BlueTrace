@@ -1,0 +1,37 @@
+# 🧠 Section 48: Hosts File (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section reads and parses the Windows `hosts` file, a system file used to statically map hostnames to IP addresses. Modifications to this file can redirect network traffic, block domains, or be used in malware campaigns for persistence and evasion.
+
+The script:
+- Locates the `hosts` file at the standard path (`System32\drivers\etc\hosts`)
+- Reads the file line by line, trimming whitespace
+- Parses lines that begin with an IPv4 address and extracts the associated hostname
+- Outputs the collected data into the **Hosts File** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `IPAddress`: The IPv4 address entry from the hosts file
+- `Hostname`: The hostname mapped to the IP address
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Malware & Redirection Detection**:
+  - Identifies suspicious or unauthorized mappings that may redirect traffic to attacker-controlled servers.
+- **Blocking & Evasion Analysis**:
+  - Reveals attempts to block security domains or update servers by mapping them to non-routable addresses.
+- **Incident Scoping & Attribution**:
+  - Helps determine if hosts file manipulation played a role in the attack lifecycle.
+- **Network Forensics & Correlation**:
+  - Supports correlation with observed network traffic and alerts.
+
+## ⚠️ Notes
+
+- Only lines that start with a valid IPv4 address and at least one hostname are recorded; comments and blank lines are ignored.
+- The script does not process IPv6 entries or advanced hosts file features (such as aliases).
+- Errors or file access issues are logged with `"ERROR"` in the `IPAddress` field.
+
+> 🔍 *The Windows hosts file is a classic target for attackers seeking simple persistence or traffic redirection. Its contents should always be verified during forensic investigations.*
