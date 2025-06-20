@@ -1,0 +1,36 @@
+# 🧬 Section 16: Loaded DLLs
+
+## 🧾 What the Code Does
+
+This section enumerates **all loaded DLLs** (Dynamic-Link Libraries) across currently running processes. For each DLL, the script collects metadata including file path, SHA256 hash, digital signature status, and publisher/company name. It also flags DLLs loaded from **potentially suspicious directories** (e.g., `AppData`, `Temp`, `Roaming`, `Downloads`).
+
+The script uses robust error handling to bypass access-denied modules and provides a fallback CSV export if Excel output fails.
+
+## 📦 What It Extracts
+
+For every DLL/module loaded by a process, the script collects:
+
+- **ProcessName**: The name of the process using the DLL.
+- **PID**: Process ID.
+- **ModuleName**: The name of the DLL file.
+- **FilePath**: Full file path to the DLL.
+- **SHA256**: File hash for integrity validation and threat intelligence matching.
+- **Signature**: Digital signature status (e.g., Valid, NotSigned, UnknownError).
+- **CompanyName**: Publisher/owner from the file’s version info.
+- **SuspiciousPath**: Boolean flag (`True`/`False`) indicating if the DLL resides in a commonly abused directory.
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Process Injection Detection**: Identifies unexpected DLLs injected into legitimate processes—common in malware and post-exploitation tactics.
+- **Triage of Suspicious Modules**: Hash and signature status help validate binaries and detect tampered or unsigned DLLs.
+- **Persistence & Evasion Tracking**: DLLs loading from `AppData`, `Temp`, or `Downloads` often point to persistence techniques or lateral movement.
+- **Threat Hunting & IOC Matching**: SHA256 hashes can be submitted to VirusTotal or threat intel platforms to check for known malware.
+- **Company Attribution**: Verifying vendor legitimacy can help differentiate between trusted and rogue components.
+
+## ⚠️ Notes
+
+- Access to some process modules may be restricted, especially for protected or system-level processes. These are flagged with `[ACCESS DENIED]`.
+- Signature checks may return `NotSigned` for legitimate open-source or internal tools; context is key.
+- False positives can occur if unsigned DLLs are legitimately installed in unusual directories—correlation with process behavior is recommended.
+
+> 🧩 *DLL enumeration provides deep insight into what code is being executed on a system—and where it came from. This section is critical for identifying stealthy malware, tracking injected code, and building trustworthy process baselines.*
