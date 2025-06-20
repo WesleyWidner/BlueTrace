@@ -1,0 +1,40 @@
+# 🕵️ Section 8: Hidden Files on C:\
+
+## 🧾 What the Code Does
+
+This section searches the root `C:\` drive **recursively** for files marked with the **Hidden** attribute. It filters accessible files and collects metadata including size and timestamps. The output is compiled into a PowerShell object collection for export to an Excel worksheet (though export is not shown in this snippet, it's implied to follow the same pattern as previous sections).
+
+It uses `Write-Progress` to indicate ongoing activity and includes robust error handling to gracefully skip inaccessible or protected files.
+
+## 📦 What It Extracts
+
+For each hidden file found, the script collects:
+
+- **FullName**: Full path to the file.
+- **SizeKB**: File size in kilobytes (rounded to two decimal places).
+- **Created**: File creation timestamp.
+- **Modified**: Last modification timestamp.
+- **Accessed**: Last access timestamp.
+
+Files must be:
+- Marked as **Hidden** in their attributes.
+- **Accessible** to the script context (i.e., not locked or permission-denied).
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Stealth Artifact Discovery**: Attackers often hide files to avoid detection. This scan can reveal:
+  - Hidden payloads
+  - Obfuscated scripts
+  - Exfiltration staging files
+- **Malware Staging Detection**: Hidden files in unusual locations (e.g., `C:\Users\Public`, `C:\Temp`) may indicate malware prep stages or data collection.
+- **System Misuse Investigation**: Power users or insiders may hide unauthorized tools or sensitive data. This audit helps uncover those.
+- **File Use Timeline Analysis**: Combining `Created`, `Modified`, and `Accessed` timestamps supports behavioral profiling and forensic timelines.
+- **Data Leakage Prevention**: Helps verify no confidential files are hidden prior to system transfer, retirement, or forensic imaging.
+
+## ⚠️ Notes
+
+- Large drives may significantly increase scan time.
+- Access to certain directories (e.g., `System Volume Information`, `Windows Defender ATP`) may still be denied, even when run as Administrator.
+- Export to Excel is recommended using `Save-ToExcelSheet -SheetName "Hidden Files"` for structured reporting.
+
+> 🧨 *This section shines a light on potentially malicious or unauthorized hidden files—critical for thorough forensic review and incident response.*
