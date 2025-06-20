@@ -1,0 +1,20 @@
+Download SQLite through the following link:
+
+https://system.data.sqlite.org/downloads/1.0.119.0/sqlite-netFx46-setup-x64-2015-1.0.119.0.exe
+
+The file structure should be as follows: 
+
+C:\BlueTrace\
+├── BlueTrace.ps1
+├── System.Data.SQLite.dll
+└── x64\
+    └── SQLite.Interop.dll
+
+
+Prior to running script enter the following commands in PowerShell:
+
+Unblock-File "C:\BlueTrace\System.Data.SQLite.dll"
+Unblock-File "C:\BlueTrace\x64\SQLite.Interop.dll"
+
+
+** YOU MUST RUN THIS SCRIPT AS AN ADMINISTRATOR **
