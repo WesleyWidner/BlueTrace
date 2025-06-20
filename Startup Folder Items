@@ -1,0 +1,43 @@
+# 🚀 Section 22: Startup Folder Items (Enhanced for DFIR)
+
+## 🧾 What the Code Does
+
+This section scans **Startup folders** for **current, common, and all user profiles** to identify items that execute on system or user login. Each item is analyzed for timestamp, hash, and path-based indicators of suspicious activity. All results are exported to an Excel worksheet titled **"Startup Folder"**.
+
+The section uses a function `Get-StartupItems` to scan for files and determine:
+
+- Their last modification date
+- SHA256 hash for threat intelligence correlation
+- Presence of suspicious patterns or extensions (e.g., `.ps1`, `.vbs`, `AppData`, etc.)
+
+## 📦 What It Extracts
+
+For each startup item found, the following metadata is recorded:
+
+- **User**: Owner of the Startup folder (e.g., specific username or `AllUsers`)
+- **ItemName**: Filename of the startup executable or script
+- **FullPath**: Complete path to the item
+- **LastModified**: Timestamp of the last write to the file
+- **SHA256**: Secure hash used for malware identification or verification
+- **Suspicious**: Boolean flag (`True`/`False`) indicating if the path or file type is commonly abused
+
+Scan locations include:
+- `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup` (current user)
+- `%ProgramData%\Microsoft\Windows\Start Menu\Programs\Startup` (all users)
+- Each profile in `C:\Users\*\AppData\Roaming\...` (per-user enumeration)
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Persistence Detection**: Startup folders are a common vector for malware to maintain execution after reboot or user login.
+- **Script-Based Attack Visibility**: `.ps1`, `.vbs`, `.bat`, `.cmd`, `.js`, and shortcut (`.lnk`) files are all frequently used by attackers.
+- **User Attribution**: Helps associate suspicious startup items with the responsible user profile.
+- **Malware Triage**: SHA256 hashes enable correlation with known indicators of compromise (IOCs) via threat intel platforms.
+- **Anomaly Detection**: Unusual startup entries or those modified recently during an incident window can be red flags.
+
+## ⚠️ Notes
+
+- This scan does **not** detect scheduled task or registry-based persistence—only file-based startup execution.
+- Some startup entries may be legitimate software (e.g., update agents, user utilities), but should be validated based on context and company policy.
+- Anti-forensics techniques may include renaming malicious scripts to resemble legitimate startup items—context matters.
+
+> 🎯 *Startup folders are an attacker favorite for simple, effective persistence. This section gives forensic analysts a clear and organized view into what launches automatically—and whether it should.*
