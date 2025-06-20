@@ -1,0 +1,36 @@
+# 🧠 Section 39: RunMRU (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects data from the `HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU` registry key. This key stores **commands manually entered** by the user into the **Run dialog box** (e.g., Win + R).
+
+The script:
+- Checks for the existence of the `RunMRU` key
+- Extracts command history excluding non-relevant fields like `MRUList`
+- Outputs the collected data into the **RunMRU** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `EntryKey`: The registry key name used to store the command (e.g., `a`, `b`, `c`, etc.)
+- `Command`: The actual command the user typed into the Run dialog (e.g., `cmd`, `powershell`, `\\fileshare`, etc.)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Execution History**:
+  - Identifies programs, files, and network paths executed or accessed manually by the user.
+- **Lateral Movement Detection**:
+  - Entries like `\\hostname\C$` or remote tools may indicate attempts to move across systems.
+- **Script and Malware Execution**:
+  - Observing `.ps1`, `.vbs`, or `.bat` entries can flag script-based attack techniques.
+- **Timeline Reconstruction**:
+  - Although RunMRU lacks timestamps, its sequence helps contextualize user actions when correlated with Prefetch, Shellbags, or Security logs.
+
+## ⚠️ Notes
+
+- The `RunMRU` list is **per-user** and must be parsed from the appropriate user hive.
+- These entries are ordered using the `MRUList` string, though this field is excluded from export.
+- RunMRU does not capture the execution result—only that the command was typed.
+
+> 🔍 *RunMRU artifacts are often overlooked but can expose manual adversary actions that evade automated logging.*  
