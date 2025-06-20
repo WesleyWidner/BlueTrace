@@ -1,0 +1,38 @@
+# 🧠 Section 40: Jump Lists Presence Check (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section checks for the existence of Windows Jump List files in the user's profile, specifically within the `AutomaticDestinations` folder. Jump Lists are used by Windows to track files and destinations accessed via applications pinned to the taskbar or Start menu.
+
+The script:
+- Checks for the existence of the `AutomaticDestinations` directory under the user's profile
+- Enumerates all `.automaticDestinations-ms` Jump List files in this folder
+- Collects the file name, full path, and last modified timestamp for each Jump List file
+- Outputs the collected information into the **JumpLists** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `FileName`: Name of the Jump List file (e.g., `4f5b980c7ba2a441.automaticDestinations-ms`)
+- `FullPath`: Full file path to the Jump List file
+- `Modified`: Last write time for the file (YYYY-MM-DD HH:MM:SS)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **User Activity Tracing**:
+  - Identifies the presence of Jump Lists for applications, indicating recent user activity.
+- **File and Application Usage**:
+  - Provides evidence of application or document usage, even if other logs or files have been deleted.
+- **Timeline Correlation**:
+  - Last modified timestamps can be used alongside other forensic artifacts (e.g., Prefetch, RunMRU, Shellbags) to reconstruct events.
+- **Detection of Suspicious Behavior**:
+  - Unusual or unexpected Jump List files can indicate non-standard application use or adversary actions.
+
+## ⚠️ Notes
+
+- Jump List files are maintained **per user** and may not exist if the feature is disabled or unused.
+- Only the presence and metadata of `.automaticDestinations-ms` files are recorded here—the actual contents are not parsed.
+- Full forensic analysis may require deeper parsing of these files using specialized tools.
+
+> 🔍 *Jump Lists can provide evidence of user actions that are often overlooked by adversaries, making them valuable in forensic investigations.*
