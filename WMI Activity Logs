@@ -1,0 +1,44 @@
+# ⚙️ Section 20: WMI Activity Logs (Enhanced for DFIR)
+
+## 🧾 What the Code Does
+
+This section collects and parses **Windows Management Instrumentation (WMI)** operational activity logs from the `Microsoft-Windows-WMI-Activity/Operational` event log. It extracts and labels recent WMI event entries (up to 100), organizing key fields relevant to query execution, consumer activity, and operation context.
+
+The script uses XML parsing of each event entry to extract structured details and then exports the results to an Excel worksheet named **"WMI Logs"**.
+
+## 📦 What It Extracts
+
+From each parsed WMI event, the following fields are captured:
+
+- **TimeCreated**: When the WMI event occurred.
+- **EventID**: Numeric ID of the event (e.g., 5857, 5858).
+- **EventType**: A human-readable label derived from the Event ID:
+  - `5857`: Query Execution Started
+  - `5858`: Query Execution Completed
+  - `5859`: Query Execution Error
+  - `5860`: Query Cancelled
+  - `5861`: Consumer Initialization
+  - `5862`: Consumer Deactivation
+- **ProcessID**: ID of the process that issued the WMI operation.
+- **User**: Username or context that initiated the action.
+- **Operation**: WMI method or action (e.g., `__EventConsumer`, `ExecQuery`).
+- **Namespace**: WMI namespace used (e.g., `root\cimv2`).
+- **Query**: The WMI query string, if available.
+
+If XML parsing fails for a given event, the script gracefully logs a fallback entry indicating a `ParseError`.
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Malware Detection**: Attackers often abuse WMI to execute payloads, establish persistence, or query system information stealthily (fileless techniques).
+- **Stealth Technique Identification**: WMI is used in many living-off-the-land (LOTL) attacks where malicious behavior is hidden in legitimate-looking commands.
+- **Execution Tracing**: Analysts can trace back WMI execution to specific users, processes, and commands—crucial for attribution and root cause analysis.
+- **Persistence Discovery**: WMI event consumers and filters are known persistence techniques. Event IDs `5861` and `5862` can reveal their use.
+- **Behavioral Baseline Deviation**: Unusual namespaces or complex queries from non-admin users may indicate anomalous or malicious usage.
+
+## ⚠️ Notes
+
+- The WMI Operational log must be enabled (`Microsoft-Windows-WMI-Activity/Operational`). If not, the script will report that the log is not available or disabled.
+- WMI logs can grow quickly in active environments—this script limits to 100 recent events for performance. This can be adjusted if deeper analysis is needed.
+- Queries are often base64-encoded or obfuscated in advanced attacks—further decoding and correlation may be required for full context.
+
+> 🕵️ *WMI is a powerful yet stealthy tool in both system administration and adversary toolkits. This section provides visibility into its use—transforming opaque system behavior into actionable forensic intelligence.*
