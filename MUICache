@@ -1,0 +1,40 @@
+# --- Section 59: MUICache ---
+Write-Progress -Activity "Collecting MUICache" -Status "Running"
+
+$muiPath = "HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\MuiCache"
+$muiEntries = @()
+
+try {
+    if (Test-Path $muiPath) {
+        $props = Get-ItemProperty -Path $muiPath -ErrorAction Stop
+        $props.PSObject.Properties | Where-Object { $_.Name -ne "(default)" -and $_.Name -ne "LangID" } | ForEach-Object {
+            $name = $_.Name
+            $desc = if ($_.Value -ne $null) { $_.Value.ToString().Trim() } else { "N/A" }
+
+            $muiEntries += [PSCustomObject]@{
+                Executable  = $name
+                Description = $desc
+            }
+        }
+    }
+
+    # Excel-safe write
+    try {
+        if ($muiEntries.Count -gt 0) {
+            if ($muiEntries.Count -gt 1048000) {
+                Write-Warning "MUICache entries exceed Excel limit. Trimming."
+                $muiEntries = $muiEntries[0..1047999]
+            }
+            Save-ToExcelSheet -SheetName "MUICache" -Data $muiEntries
+        } else {
+            Save-ToExcelSheet -SheetName "MUICache" -Data @([PSCustomObject]@{ Executable = "None"; Description = "No entries found" })
+        }
+        [System.GC]::Collect()
+        [System.GC]::WaitForPendingFinalizers()
+    } catch {
+        Write-Warning "Excel export failed for MUICache: $_"
+    }
+
+} catch {
+    Write-Warning "Error collecting MUICache: $_"
+}
