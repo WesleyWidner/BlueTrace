@@ -1,0 +1,38 @@
+# 🧠 Section 67: Amcache.hve (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section checks for the existence of the Windows **Amcache.hve** file, a registry hive that contains detailed metadata about executables, programs, and devices that have been run or installed on the system. Amcache is a powerful forensic artifact for tracking program execution and persistence mechanisms.
+
+The script:
+- Checks if the `Amcache.hve` file exists at the standard AppCompat directory path
+- Records the file name, path, existence status, and notes about its format and analysis recommendations
+- Outputs the results into the **Amcache** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `File`: The name of the file (always "Amcache.hve")
+- `Path`: The full path to the Amcache file
+- `Exists`: Whether the file was found (`Yes` or `No`)
+- `Note`: Guidance on analysis (e.g., use of AmcacheParser)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Program Execution Tracking**:
+  - Provides a rich record of executed binaries and installed programs, supplementing Prefetch and AppCompatCache data.
+- **Malware & Persistence Detection**:
+  - Identifies suspicious or malicious executables that may have run on the system, even if deleted.
+- **Device History**:
+  - May contain metadata about connected devices and mounted volumes, supporting broader device investigations.
+- **Timeline Development**:
+  - Enhances execution and installation timelines by providing additional artifact sources.
+
+## ⚠️ Notes
+
+- Amcache.hve is a **binary registry hive** and requires specialized forensic tools (e.g., AmcacheParser, Eric Zimmerman's tools) for analysis.
+- The file may not exist on all systems, depending on Windows version and configuration.
+- Only the presence and basic metadata are collected by this script—detailed content requires offline parsing.
+
+> 🔍 *Amcache.hve is a high-value artifact for historical execution and device history—always collect and analyze it with dedicated tools during forensic investigations.*
