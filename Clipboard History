@@ -1,0 +1,39 @@
+# 🧠 Section 41: Clipboard History (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section checks for the presence of the Windows Clipboard history database, specifically in the user's local application data directory. The Windows Clipboard history can contain fragments of text, images, or files that the user has copied using standard copy/paste operations (Ctrl+C/Ctrl+V).
+
+The script:
+- Checks for the existence of the Clipboard history directory under the user's profile
+- Recursively enumerates all files in the `Clipboard` folder
+- Collects metadata for each file, including the file name, full path, file size, and last modified timestamp
+- Outputs the collected data into the **Clipboard History** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Name`: Name of the clipboard history file
+- `FullPath`: Full file path to the clipboard history file
+- `Size`: Size of the file (in bytes)
+- `Modified`: Last write time for the file (YYYY-MM-DD HH:MM:SS)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Sensitive Data Discovery**:
+  - Clipboard files may contain remnants of passwords, credentials, confidential text, or copied images/files.
+- **User Intent & Behavior**:
+  - Provides insight into what data users considered important or intended to move between applications or systems.
+- **Data Exfiltration Detection**:
+  - Frequent or unusual clipboard activity may indicate attempts to exfiltrate sensitive information using copy/paste techniques.
+- **Timeline Reconstruction**:
+  - Modification times can be correlated with other user activity artifacts to establish a sequence of actions.
+
+## ⚠️ Notes
+
+- Clipboard history is a **per-user** artifact and may not exist if history is disabled or has never been used.
+- This section only records the existence and metadata of clipboard files; actual clipboard contents require deeper parsing with specialized tools.
+- File access may be restricted by permissions, in which case a warning is generated.
+
+> 🔍 *Clipboard history artifacts can expose transient data and user intentions, revealing sensitive information that may not be stored elsewhere.*
