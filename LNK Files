@@ -1,0 +1,41 @@
+# 🧠 Section 70: LNK Files (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section enumerates all Windows **LNK (shortcut) files** from the `Recent` folders of all user profiles on the system. LNK files are generated whenever a user opens or interacts with a file or application, making them critical artifacts for reconstructing user activity and identifying recently accessed documents or programs.
+
+The script:
+- Iterates through all user directories on the system drive
+- Checks each user’s `AppData\Roaming\Microsoft\Windows\Recent` folder for `.lnk` files
+- Collects the user name, LNK file name, full path, last modified timestamp, and file size (in KB) for each shortcut
+- If the Recent folder does not exist for a user, records a placeholder entry
+- Outputs the collected data into the **LNK Files** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `User`: The name of the user account
+- `FileName`: The shortcut (LNK) file name
+- `FullPath`: The full file path to the LNK file
+- `Modified`: The last write time of the shortcut
+- `SizeKB`: The file size in kilobytes (rounded to two decimal places)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **User Activity Reconstruction**:
+  - Identifies files and programs recently accessed by each user on the system.
+- **Evidence of Document Use or Transfer**:
+  - Reveals user interaction with documents, removable media, or network shares through shortcut creation.
+- **Malware & Attack Tool Tracking**:
+  - Detects execution of malicious tools or unauthorized software via corresponding LNK artifacts.
+- **Timeline Enrichment**:
+  - Correlates shortcut modification times with other system events for detailed timeline analysis.
+
+## ⚠️ Notes
+
+- LNK files store rich metadata and can be parsed with forensic tools (e.g., Eric Zimmerman's LECmd) for deeper insight (original file path, MAC times, volume serial number, etc.).
+- The script only records shortcut file metadata, not their internal contents.
+- Absence of the Recent folder may indicate a new or unused profile, or deliberate artifact cleanup.
+
+> 🔍 *LNK files are invaluable for establishing user actions and tracking document or tool usage—preserve and analyze these shortcuts during forensic investigations.*
