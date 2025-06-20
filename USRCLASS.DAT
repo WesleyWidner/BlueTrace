@@ -1,0 +1,38 @@
+# 🧠 Section 65: USRCLASS.DAT (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section checks for the existence of the user-specific **UsrClass.dat** registry hive, which stores ShellBag data, jump lists, and various user interface settings. UsrClass.dat is a key artifact for reconstructing user folder access, file usage, and desktop interactions.
+
+The script:
+- Verifies the presence of `UsrClass.dat` in the standard local app data path for the current user
+- Records the file name, path, existence status, and notes on its forensic value and analysis approach
+- Outputs the results into the **USRCLASS.DAT** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `File`: The name of the file (always "UsrClass.dat")
+- `Path`: The full path to the file
+- `Exists`: Whether the file was found (`Yes` or `No`)
+- `Note`: Analysis notes (e.g., artifact types, tool recommendations)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **ShellBag Analysis**:
+  - Confirms the presence of ShellBag data, which records user folder access and window navigation.
+- **Jump List & UI History**:
+  - Enables parsing of jump list and user interaction history for deeper timeline and intent analysis.
+- **User Activity Reconstruction**:
+  - Helps reconstruct what folders and files were accessed, moved, or viewed by the user.
+- **Forensic Tool Guidance**:
+  - Advises use of Registry Explorer, Eric Zimmerman's Shellbag Explorer, or other parsers for in-depth examination.
+
+## ⚠️ Notes
+
+- UsrClass.dat is a **user hive** and should be collected for each user profile of interest.
+- The file is in a **binary registry hive format** and requires forensic tools for analysis.
+- Absence of the file may indicate no interactive logons or a deleted user profile.
+
+> 🔍 *UsrClass.dat is critical for detailed user activity and folder access reconstruction—always preserve and analyze this hive in digital investigations.*
