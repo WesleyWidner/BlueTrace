@@ -1,0 +1,38 @@
+# 🧠 Section 42: Account Lockouts (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section queries the Windows Security event log for **account lockout events** (Event ID 4740). These events are generated when a user account is locked out due to failed authentication attempts—often a sign of brute force activity, misconfiguration, or user error.
+
+The script:
+- Retrieves up to 100 recent Event ID 4740 entries from the Security event log
+- Parses each event’s message to extract the account name and a summary message
+- Records the event time, username, and the raw event message (flattened to a single line for readability)
+- Outputs the collected data into the **Account Lockouts** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `TimeCreated`: Date and time the lockout event was recorded (YYYY-MM-DD HH:MM:SS)
+- `User`: The account name that was locked out
+- `Message`: Full text of the event message (single-line format)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Brute Force & Attack Detection**:
+  - Multiple lockout events for the same user can indicate password guessing or credential stuffing attacks.
+- **Misconfiguration & User Error**:
+  - Frequent lockouts may point to synchronization issues or users entering incorrect credentials repeatedly.
+- **Insider Threats**:
+  - Patterns of lockouts for privileged or rarely-used accounts could reveal attempted privilege escalation or insider activity.
+- **Timeline Correlation**:
+  - Lockout times can be matched to other security events for detailed incident reconstruction.
+
+## ⚠️ Notes
+
+- Only lockouts recorded in the local **Security event log** are included; events may be missed if log retention is short or auditing is disabled.
+- Event messages are parsed using regular expressions—parsing failures are marked as `"ParseError"`.
+- Only metadata and message summaries are captured, not full forensic context (such as source machine or process).
+
+> 🔍 *Account lockout events are high-value indicators of potential attacks, authentication failures, or policy issues in enterprise environments.*
