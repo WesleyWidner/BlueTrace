@@ -1,0 +1,37 @@
+# 🧠 Section 45: net localgroup Output (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects all local groups defined on the Windows system by executing the `net localgroup` command. Local groups control access to system resources and privileges for their members. Reviewing group configurations is important for security posture and incident response.
+
+The script:
+- Runs the `net localgroup` command to enumerate all local groups
+- Parses each line of the output to extract the group name, filtering out irrelevant lines and headers
+- Records the date and time when each group was collected
+- Outputs the collected data into the **Local Groups** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `GroupName`: The name of the local group found on the system (e.g., `Administrators`, `Users`, `Remote Desktop Users`)
+- `Collected`: Date and time the group information was recorded (YYYY-MM-DD HH:MM:SS)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Privilege Auditing**:
+  - Identifies all groups that grant access to system functions or resources, supporting privilege escalation investigations.
+- **Attack Surface Reduction**:
+  - Helps find groups that may be misconfigured or unused, reducing unnecessary risk.
+- **Baseline and Change Detection**:
+  - Enables comparison with baseline group lists to detect unauthorized creation or modification.
+- **Incident Scope Expansion**:
+  - Determines whether new or suspicious groups have been added as part of adversary activity.
+
+## ⚠️ Notes
+
+- Only local groups are captured; domain groups are not included.
+- The script does not enumerate group membership, only group names and collection times.
+- Any errors or failures during execution are reported as `"ERROR"` in the output.
+
+> 🔍 *Analyzing local group configurations is critical for understanding system access controls and identifying potential lateral movement paths.*
