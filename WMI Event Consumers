@@ -1,0 +1,38 @@
+# 🧪 Section 25: WMI Event Consumers (Enhanced for DFIR)
+
+## 🧾 What the Code Does
+
+This section scans for **WMI Event Consumers** from the `root\subscription` namespace. These consumers are often used in **fileless persistence techniques** and can silently trigger scripts or executables based on system events (e.g., logon, time, service start). Each consumer is parsed to extract its type, command line, executable, and suspicious indicators.
+
+Results are compiled into structured objects and exported to an Excel worksheet named **"WMI Consumers"**.
+
+## 📦 What It Extracts
+
+For each WMI Event Consumer found (`__EventConsumer` class), the script collects:
+
+- **Name**: The friendly name assigned to the consumer.
+- **ConsumerType**: The specific subclass of the consumer (e.g., `CommandLineEventConsumer`, `ActiveScriptEventConsumer`).
+- **CommandLine**: Full command line that will be executed when the event is triggered (if applicable).
+- **Executable**: Parsed `.exe` file from the command line (if extractable).
+- **Suspicious**: Boolean flag set to `True` if suspicious indicators are found in the command line, such as:
+  - Use of script interpreters (`powershell`, `cmd`, `wscript`, `cscript`)
+  - References to temporary or user directories (`AppData`, `Roaming`, `Downloads`)
+  - Script extensions (`.vbs`, `.ps1`, `.bat`, `.js`)
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Persistence Mechanism Detection**: WMI consumers are often used by advanced threats (e.g., APTs, malware droppers) to persist without touching startup folders or registry keys.
+- **Stealth Execution Tracking**: Consumers may launch payloads based on seemingly benign events (e.g., logon), making them harder to detect during static analysis.
+- **Command-Line Review**: Analysts can identify encoded or obfuscated commands typically used in fileless malware or LOLBins.
+- **Script-Based Malware Visibility**: Helps uncover fileless backdoors, hidden beaconing scripts, or malicious downloaders embedded in PowerShell or VBScript.
+- **Hunting for Anomalies**: Unusual names, uncommon consumer types, and scripts launched from user-writeable paths often indicate compromise.
+
+## ⚠️ Notes
+
+- `__EventConsumer` entries represent only **half** of the persistence equation—also investigate:
+  - `__EventFilter`: Defines the triggering condition.
+  - `__FilterToConsumerBinding`: Connects filters to consumers.
+- Not all consumers have a `CommandLine` field—some may use alternate execution contexts.
+- Requires **elevated privileges** to access the `root\subscription` namespace fully.
+
+> 🕵️ *WMI Event Consumers are a stealthy, fileless, and powerful persistence vector. This section helps you uncover and profile these often-overlooked artifacts before they silently reload malicious payloads.*
