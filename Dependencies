@@ -20,5 +20,18 @@ Prior to running script enter the following commands in PowerShell:
 Unblock-File "C:\BlueTrace\System.Data.SQLite.dll"
 Unblock-File "C:\BlueTrace\x64\SQLite.Interop.dll"
 
+Bypass For A Single Session
+
+powershell.exe -ExecutionPolicy Bypass -File .\BlueTrace.ps1
+
+Change Execution Policy
+
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+Unblock The Script
+
+Unblock-File -Path .\BlueTrace.ps1
+
+
 
 ** YOU MUST RUN THIS SCRIPT AS AN ADMINISTRATOR **
