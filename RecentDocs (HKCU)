@@ -1,0 +1,40 @@
+# 🧠 Section 35: RecentDocs (HKCU) – Enhanced for DFIR
+
+## 📌 What the Code Does
+
+This section inspects the `HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs` registry path, which stores **references to files recently accessed by the current user**.
+
+The script enumerates:
+- The subkeys under `RecentDocs` (each corresponding to a file extension or folder)
+- All value entries under those subkeys (excluding the `MRUListEx` pointer)
+- The type and raw content of each entry (commonly binary)
+
+The extracted data is exported to the **RecentDocs** worksheet in the final Excel report.
+
+## 📋 What It Extracts
+
+Each row includes:
+
+- `SubKey`: The file extension or directory name (e.g., `.docx`, `Folder`), helping categorize the file type.
+- `ValueName`: The registry entry name (typically numeric) representing the index in the recent file list.
+- `ValueType`: The .NET type of the registry value (often `Byte[]` for binary-encoded paths).
+- `RawValue`: The raw binary or string data stored for the recent document.
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Document Usage Timeline**:
+  - Correlates with user activity, showing what documents were opened and when, even if they were deleted afterward.
+- **File Path Discovery**:
+  - Although paths are binary-encoded, they can be parsed using tools like **Regripper**, **Registry Explorer**, or **RecentDocsParser** to extract meaningful file names.
+- **Suspicious Activity Detection**:
+  - Unusual file types or file names (e.g., `.vbs`, `.ps1`, `.exe`) in `RecentDocs` may indicate script execution or file staging.
+- **Complementary Analysis**:
+  - Can be cross-referenced with file system access logs, LNK files, jump lists, and `UserAssist` entries for behavioral profiling.
+
+## ⚠️ Notes
+
+- This section **does not decode** the binary values into human-readable paths. Analysts must parse the values with dedicated tools.
+- Only data from the **currently logged-in user** is collected. To gather entries from all users, you'd need to mount each user's `NTUSER.DAT`.
+- `MRUListEx`, which dictates the most recently used ordering, is intentionally excluded here but can provide additional value if decoded.
+
+> 🔍 *RecentDocs is a fast-win artifact in DFIR cases involving data theft, insider threats, or suspicious document access.* 
