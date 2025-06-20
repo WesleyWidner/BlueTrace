@@ -1,0 +1,34 @@
+# 📁 Section 7: File Metadata
+
+## 🧾 What the Code Does
+
+This section recursively scans the current user’s profile directory (`$env:USERPROFILE`) to collect detailed **timestamp metadata** for every accessible file. It uses PowerShell’s `Get-ChildItem` to traverse all subdirectories and gathers three key timestamps for each file.
+
+The script displays real-time progress using `Write-Progress`, handles access issues gracefully, and exports results to an Excel worksheet titled **"File Timestamps"** using the `Save-ToExcelSheet` function.
+
+## 📦 What It Extracts
+
+For each file found within the user's profile (e.g., Desktop, Documents, AppData), the script collects:
+
+- **Name**: The file name.
+- **FullPath**: Absolute file path.
+- **CreationTime**: When the file was first created on the system.
+- **LastModified**: When the file’s content was last changed.
+- **LastAccessed**: When the file was last opened or interacted with.
+
+Timestamps are standardized in the format `yyyy-MM-dd HH:mm:ss` for forensic consistency.
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Timeline Reconstruction**: All three timestamps allow an analyst to build a comprehensive activity timeline—especially useful in intrusion investigations.
+- **Anomaly Detection**: Unusual access patterns (e.g., large numbers of files accessed shortly before an exfiltration event) can point to insider threat or malware activity.
+- **File Origin Tracking**: Discrepancies between creation and modification times may indicate file copying or tampering.
+- **Persistence and Tool Dropper Identification**: Recursively inspecting AppData or Temp directories can uncover hidden persistence mechanisms, staging artifacts, or dropped payloads.
+- **User Activity Profiling**: Reveals active directories and frequently accessed files, providing behavioral indicators.
+
+## ⚠️ Notes
+
+- Files that are hidden or protected may still trigger warnings depending on ACL restrictions or system configuration.
+- Large user profiles may generate tens of thousands of entries—be mindful of execution time and memory usage in large environments.
+
+> 🧬 *This section is foundational for digital forensics, enabling analysts to piece together file-based timelines and user interactions across the system.*
