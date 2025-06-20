@@ -1,0 +1,36 @@
+# 🧠 Section 61: RecentFileCache.bcf (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section checks for the presence of the **RecentFileCache.bcf** file, an artifact maintained by Windows AppCompat that contains information about recently accessed executables. This file is a valuable resource for forensic investigations, especially when examining program execution and user activity.
+
+The script:
+- Checks if the `RecentFileCache.bcf` file exists in the standard AppCompat directory
+- Records the path and notes about its presence and format
+- Outputs the results into the **RecentFileCache** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Path`: The full file path to the `RecentFileCache.bcf` file, or `"N/A"` if not found
+- `Note`: Information about the artifact (e.g., existence and instructions for parsing)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Execution Tracing**:
+  - Indicates that a record of recently accessed executables is present on the system, which can be further analyzed using specialized tools.
+- **Timeline Enrichment**:
+  - Supplements timeline analysis when correlated with Prefetch, AppCompatCache, or other execution artifacts.
+- **Persistence & Attack Investigation**:
+  - May contain evidence of malicious or suspicious executables launched on the host.
+- **Tool Guidance**:
+  - Reminds analysts to use third-party utilities (like PECmd or AppCompatParser) to parse the binary file for detailed results.
+
+## ⚠️ Notes
+
+- The file is stored in a **binary format** and is not directly human-readable; use tools such as Eric Zimmerman's PECmd or AppCompatParser to extract actionable data.
+- Not all systems retain this file, and its presence may depend on Windows version and configuration.
+- If the file does not exist, a placeholder entry is created to document its absence.
+
+> 🔍 *RecentFileCache.bcf can be a goldmine for uncovering program execution details, but requires specialized tools for analysis. Always check its existence during forensic triage.*
