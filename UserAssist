@@ -1,0 +1,41 @@
+# 🧠 Section 36: UserAssist (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section targets the `HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist` registry path. **UserAssist** tracks GUI-based program executions and usage patterns by logging encrypted values tied to user interaction.
+
+The script:
+- Recursively enumerates all subkeys within `UserAssist`
+- Extracts registry values that are strings, integers, or datetimes
+- Filters out `UEME_RUNPATH` and raw binary data
+- Outputs the results to the **UserAssist** worksheet in Excel
+
+## 📋 What It Extracts
+
+Each entry contains:
+
+- `SubKey`: The GUID or path under `UserAssist` indicating a program category or feature.
+- `ValueName`: Encoded name of the executable or shortcut (ROT13 by default in legacy systems).
+- `ValueType`: Data type of the registry value (e.g., `Int32`, `String`, `DateTime`).
+- `RawValue`: The raw unprocessed value from the registry (usage count, timestamps, etc.).
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Application Execution Evidence**:
+  - Reveals applications executed via Explorer, Start Menu, or desktop interactions.
+- **User Behavior Profiling**:
+  - Tracks frequency and last run of applications, useful in insider threat or malware staging analysis.
+- **Timeline Reconstruction**:
+  - When decoded fully, UserAssist includes `Run Count` and `Last Execution Time`—crucial for building activity timelines.
+- **Persistence and Malware Detection**:
+  - Repeated execution of unknown or suspicious programs may signal malicious persistence techniques.
+
+## ⚠️ Notes
+
+- The script **does not decode ROT13**-encoded `ValueName`s nor parse binary value structures like `RunCount` and timestamps. Use tools like:
+  - **Eric Zimmerman's `AppCompatProcessor`**
+  - **Regripper UserAssist plugin**
+- This data is **only for the currently logged-in user**. For multi-user coverage, parse each user's `NTUSER.DAT` offline.
+- `UserAssist` is **frequently ignored by attackers**, making it a reliable artifact in stealth malware investigations.
+
+> 🔍 *UserAssist is a quiet witness to user-driven execution—and one of the most underutilized keys in the Windows registry for forensic analysis.*
