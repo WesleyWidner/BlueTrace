@@ -1,0 +1,37 @@
+# 🌐 Section 19: Parent/Child Process Tree (Enhanced for DFIR)
+
+## 🧾 What the Code Does
+
+This section constructs an **enhanced process tree** focused on digital forensics and incident response (DFIR) by retrieving process metadata from `Win32_Process` via CIM. It collects hierarchical relationships between processes (parent and child), along with command-line arguments, executable paths, and creation timestamps.
+
+The data is structured into a PowerShell object list, sorted by creation time, and exported to an Excel worksheet named **"Proc Tree"**.
+
+## 📦 What It Extracts
+
+For each running process on the system, the script gathers:
+
+- **ProcessName**: Name of the process executable.
+- **ProcessId**: Process ID (PID).
+- **ParentProcessId**: Parent PID (used to build a hierarchical tree).
+- **ExecutablePath**: Full path to the running binary, if available.
+- **CommandLine**: Arguments used to launch the process (very useful in DFIR).
+- **CreationDate**: When the process was started (converted from DMTF to human-readable format).
+
+The results are sorted chronologically by `CreationDate`.
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Attack Chain Reconstruction**: Maps how processes were spawned and chained together—crucial for understanding exploitation flow or lateral movement.
+- **Suspicious Command Detection**: Reveals obfuscated commands, PowerShell abuse, or encoded payloads hidden in `CommandLine`.
+- **Executable Path Validation**: Identifies processes launched from non-standard or suspicious directories (e.g., `AppData`, `Temp`).
+- **Privilege Escalation and Injection Tracing**: Connects low-privilege processes to high-integrity parent processes used for escalation or injection.
+- **Persistence Mechanism Mapping**: Long-lived processes spawned by scheduled tasks or startup entries can be flagged and reviewed.
+- **Behavioral Baseline Comparison**: Used for threat hunting by comparing typical vs. abnormal parent-child chains on endpoints.
+
+## ⚠️ Notes
+
+- `ExecutablePath` and `CommandLine` may be null for some system or protected processes.
+- CreationDate accuracy depends on WMI and may slightly differ from kernel-level or EDR tools.
+- This section provides data only for **currently running** processes. Historical analysis requires correlation with event logs or endpoint detection tools.
+
+> 🔍 *Understanding process lineage is fundamental in DFIR. This enhanced tree offers visibility into how each process started, what it ran, and where it came from—crucial for diagnosing compromise or post-exploitation behavior.*
