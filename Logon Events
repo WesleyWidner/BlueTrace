@@ -1,0 +1,41 @@
+# 🧠 Section 52: Logon Events (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects recent **logon events** from the Windows Security event log, specifically those with Event ID 4624 (successful logon). Logon events are fundamental for tracking user access, detecting suspicious authentication attempts, and building a timeline of system usage.
+
+The script:
+- Queries the Security event log for up to 100 recent Event ID 4624 entries
+- Parses each event for key details: event time, account name, logon type, logon ID, and the full event message
+- Formats each result into a structured object for reporting
+- Outputs the collected data into the **Logon Events** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `TimeCreated`: Date and time the logon event was recorded
+- `EventID`: The event identifier (should be `4624` for successful logons)
+- `Account`: The username or account that logged in
+- `LogonType`: Numeric code describing the logon method (e.g., 2 = Interactive, 3 = Network)
+- `LogonID`: Unique session identifier for the logon event
+- `Message`: Flattened event message for reference
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Authentication & Access Tracking**:
+  - Identifies which users accessed the system, when, and how (interactive, remote, network, etc.).
+- **Suspicious Logon Detection**:
+  - Detects abnormal logon types, unusual accounts, or off-hours activity indicative of compromise.
+- **Timeline Reconstruction**:
+  - Enables correlation of user activity with other security events and forensic artifacts.
+- **Credential Theft & Lateral Movement Analysis**:
+  - Reveals accounts or logon types exploited by attackers during intrusion campaigns.
+
+## ⚠️ Notes
+
+- Only the 100 most recent successful logon events are collected; increase this limit for deeper analysis if needed.
+- Event parsing uses regular expressions and may occasionally misparse nonstandard log formats.
+- Logon Type codes map to different access methods (e.g., 2 = Interactive, 3 = Network, 10 = RemoteInteractive); see Microsoft documentation for full mapping.
+
+> 🔍 *Logon events are a foundational artifact for tracking access, detecting compromise, and establishing a forensically sound timeline of user and attacker activity.*
