@@ -1,0 +1,43 @@
+# ⏰ Section 21: Scheduled Tasks (DFIR-Enhanced)
+
+## 🧾 What the Code Does
+
+This section enumerates **Windows Scheduled Tasks** with enhancements for digital forensic and incident response (DFIR) use cases. It inspects task metadata, extracts execution and trigger details, performs hash validation on executable actions, and flags suspicious paths and timing behaviors.
+
+All scheduled tasks are processed and the results are exported to an Excel worksheet titled **"Scheduled Tasks"**.
+
+## 📦 What It Extracts
+
+For each scheduled task discovered, the script gathers:
+
+- **TaskName**: The task's display name.
+- **TaskPath**: Full registration path within Task Scheduler.
+- **State**: Current runtime state of the task (e.g., Ready, Running, Disabled).
+- **LastRunTime**: Timestamp of the last execution.
+- **NextRunTime**: Scheduled next run.
+- **LastResult**: Exit code from the last run (can be mapped to success/failure).
+- **Hidden**: Indicates if the task is hidden.
+- **Principal**: The user account that runs the task.
+- **Action**: Executable(s) triggered by the task.
+- **Trigger**: Start times or conditions (e.g., `AtLogon`, `Daily at 01:00`).
+- **SHA256**: Hash of the first executable associated with the task (if resolvable).
+- **SuspiciousPath**: Boolean flag for executables in user or temp directories.
+- **SuspiciousTrigger**: Boolean flag for suspicious scheduling patterns (e.g., early AM, logon, or high-frequency repetition).
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Persistence Detection**: Scheduled tasks are a common and stealthy persistence mechanism used by malware and adversaries.
+- **Suspicious Timing Patterns**: Tasks triggering at odd hours or at logon/startup can suggest automation of post-exploitation activities.
+- **Malware Launch Vectors**: Paths such as `AppData`, `Temp`, or `Downloads` often indicate task-based execution of dropped or staged payloads.
+- **Binary Verification**: File hashes (SHA256) allow analysts to correlate binaries with threat intel databases or scan services (e.g., VirusTotal).
+- **Privilege Abuse Tracking**: Identifying tasks running as `SYSTEM` or `Administrator` helps detect privilege abuse or escalation vectors.
+- **Hidden Activity Uncovering**: Hidden tasks or tasks with obscured paths are common indicators of stealth operations.
+
+## ⚠️ Notes
+
+- `Get-ScheduledTask` requires administrative privileges and may not return all system-wide tasks in restricted environments.
+- Some scheduled tasks run system scripts or use `cmd.exe /c` wrappers, making it important to parse nested command paths.
+- Hashing may fail for non-resolvable or deleted executable paths—those are marked accordingly (`Not Found`, `HashError`, or `N/A`).
+- Tasks with triggers like `Repetition` or `AtStartup` may appear benign but should be validated for context and content.
+
+> ⏳ *Scheduled tasks are a popular and powerful attacker tactic for achieving persistence and lateral movement. This section gives analysts a high-fidelity lens into what’s running, when, by whom, and from where.*
