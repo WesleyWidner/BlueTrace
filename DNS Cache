@@ -1,0 +1,39 @@
+# 🧠 Section 50: DNS Cache (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects and parses the current Windows **DNS cache** entries. The DNS cache stores recent domain name resolution results, which can provide a record of websites, services, or remote systems contacted from the host.
+
+The script:
+- Executes `ipconfig /displaydns` to dump the DNS resolver cache
+- Extracts relevant fields from the output: record name, record type, time-to-live (TTL), and data
+- Formats common record types (A, CNAME, AAAA) for clarity
+- Outputs the collected data into the **DNS Cache** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `RecordName`: The domain or host name queried (e.g., `example.com`)
+- `RecordType`: The type of DNS record (e.g., `A (Host Address)`, `CNAME (Canonical Name)`, `AAAA (IPv6 Address)`, or `Other`)
+- `TTL`: Time-to-live for the cache entry, indicating how long the result is valid (in seconds)
+- `Data`: The IP address, canonical name, or other record data
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Historical Domain Resolution**:
+  - Reveals domains and hosts the system has recently attempted to contact, even if browser or application history has been cleared.
+- **Malicious Activity Detection**:
+  - Identifies signs of command-and-control, phishing, or exfiltration infrastructure accessed during an incident.
+- **Timeline & Scope Expansion**:
+  - Helps correlate suspicious DNS lookups with other system activity or known threat intelligence.
+- **Attribution & Actor Profiling**:
+  - May reveal attacker infrastructure or staging domains used in the attack chain.
+
+## ⚠️ Notes
+
+- The DNS cache is volatile and may be cleared by system restarts or manual flushing (`ipconfig /flushdns`).
+- Only currently cached entries are collected; deleted or expired records will not appear.
+- Some applications may use their own DNS resolvers, bypassing the Windows cache.
+
+> 🔍 *Reviewing DNS cache entries is a quick and valuable method for uncovering recent communication with potentially malicious or unauthorized domains.*
