@@ -1,0 +1,38 @@
+# 🧬 Section 26: COM Hijacking Detection (DFIR Enhanced)
+
+## 🧾 What the Code Does
+
+This section detects **COM Hijacking** attempts by scanning for custom or altered **Component Object Model (COM)** registrations in the Windows Registry under CLSID keys. It identifies DLLs registered to load via `InprocServer32`, checks their file hash, and verifies digital signatures. This allows analysts to spot unauthorized or malicious DLLs that may execute under trusted processes.
+
+Findings are exported to an Excel worksheet titled **"COM Hijacking"**.
+
+## 📦 What It Extracts
+
+For each CLSID registration with an associated DLL, the script collects:
+
+- **CLSIDPath**: Registry path of the COM class identifier.
+- **DLLPath**: Path to the DLL registered as the in-process server.
+- **SHA256**: Hash of the DLL, used for malware identification or integrity checks.
+- **IsSigned**: Boolean indicating whether the DLL is digitally signed and the signature is valid.
+- **SignatureStatus**: Signature state (`Valid`, `NotSigned`, `CheckFailed`, etc.).
+- **Publisher**: Certificate subject from the digital signature, if available.
+- **Suspicious**: Boolean flag based on:
+  - Paths in `AppData`, `Temp`, `Roaming`, or `Downloads`
+  - Use of script-based DLL loaders or unsigned DLLs
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Persistence Discovery**: COM hijacking allows attackers to maintain stealthy, fileless persistence triggered by legitimate applications (e.g., Explorer, Microsoft Office).
+- **Malicious DLL Detection**: Unsigned or oddly located DLLs (especially in user-writable directories) may indicate tampering or malicious injection.
+- **Signature Verification**: Helps determine the legitimacy of loaded modules. Many malware authors omit valid code signing.
+- **Forensic Comparison**: Differences between HKCU (user-scope) and HKLM (system-scope) provide insight into privilege levels used for persistence.
+- **Abuse Identification**: `InprocServer32` is a common target for attackers to manipulate DLL loading behavior silently.
+
+## ⚠️ Notes
+
+- Hijacked COM objects may not execute immediately—they often trigger in response to GUI events or application behavior (e.g., opening a dialog).
+- Legitimate software may also register DLLs under CLSID keys, so false positives must be reviewed in context.
+- Requires read access to both HKCU and HKLM hives—run as Administrator for full coverage.
+- This check should be supplemented with `FilterToConsumerBinding` and `EventFilter` WMI reviews for complete fileless persistence hunting.
+
+> 🧠 *COM hijacking is stealthy, silent, and often invisible to traditional AV. This section helps DFIR analysts catch one of the most insidious persistence techniques before it activates.*
