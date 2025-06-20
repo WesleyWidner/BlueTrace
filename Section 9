@@ -1,0 +1,32 @@
+# 🧬 Section 9: Alternate Data Streams (ADS)
+
+## 🧾 What the Code Does
+
+This section scans the user’s **Desktop directory** (recursively) for files that contain **Alternate Data Streams (ADS)**—a feature of the NTFS file system that allows multiple data streams to be associated with a single file. The script collects any non-default streams and exports the findings to an Excel worksheet titled **"ADS"**.
+
+It uses `Get-Item -Stream *` to enumerate all ADS entries and filters out the standard `::$DATA` stream (which represents the main file content). The results include the file path, stream name, and stream size.
+
+## 📦 What It Extracts
+
+For every file with at least one non-default ADS, the script records:
+
+- **File**: Full path to the file hosting the ADS.
+- **Stream**: The name of the alternate stream (e.g., `Zone.Identifier`, `:secretdata`).
+- **Length**: Size of the ADS in bytes.
+
+Search location: `%USERPROFILE%\Desktop` and all its subdirectories.
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Malware Concealment Detection**: Threat actors often use ADS to hide payloads, scripts, or exfiltrated data within legitimate files.
+- **User Intent Analysis**: An ADS might contain metadata (e.g., `Zone.Identifier` from downloaded files) that provides insight into user behavior and file origin.
+- **Data Hiding & Evasion**: ADS can be used by insiders or malware to bypass file listing tools and avoid detection by simple antivirus or backup systems.
+- **Evidence Preservation**: ADS is often overlooked in standard collection workflows. Explicitly documenting their presence is crucial for comprehensive forensic imaging.
+
+## ⚠️ Notes
+
+- **Zone.Identifier** ADS is common for files downloaded from the internet and indicates their origin. Its presence is often benign but contextually important.
+- ADS data may not appear in standard file viewers or search tools unless explicitly queried.
+- This method only works on NTFS volumes; ADS is not supported on FAT/FAT32.
+
+> 🧨 *Alternate Data Streams are one of the most stealthy methods of data storage in Windows. Capturing this data helps expose hidden threats and maintain full forensic integrity.*
