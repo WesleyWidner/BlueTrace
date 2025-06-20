@@ -1,0 +1,45 @@
+# 🧠 Section 37: ShellBags Detection (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section checks for the existence and metadata of two core ShellBags registry keys:
+
+- `HKCU:\Software\Microsoft\Windows\Shell\BagMRU`
+- `HKCU:\Software\Microsoft\Windows\Shell\Bags`
+
+ShellBags store **user folder view settings**, which Windows uses to remember how folders are displayed (e.g., icon view, sort order). However, forensic analysts exploit these keys to identify **folder access—even for folders that no longer exist**.
+
+This script:
+- Verifies the presence of the keys
+- Extracts their last write time
+- Outputs this data into the **ShellBags** worksheet
+
+## 📋 What It Extracts
+
+Each result includes:
+
+- `Path`: Registry key path (BagMRU or Bags)
+- `Exists`: Boolean indicating if the key is present
+- `LastWrite`: Timestamp of the registry key’s last modification
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Evidence of Folder Access**:
+  - ShellBags can reveal folder interactions not visible via file system artifacts—**even if folders were deleted**.
+- **Timeline Enrichment**:
+  - `LastWrite` timestamps can help place folder access in a broader timeline.
+- **Hidden/Malicious Folder Discovery**:
+  - May indicate access to unexpected locations like `Temp`, `$Recycle.Bin`, or renamed backdoors.
+- **Lateral Movement Clues**:
+  - Custom ShellBag entries may indicate access to remote shares or mounted volumes.
+
+## ⚠️ Notes
+
+- This section **does not parse ShellBag contents**, only checks for key presence and timestamps.
+- For complete analysis, use tools like:
+  - **ShellBags Explorer (Eric Zimmerman)**
+  - **RECmd**
+  - **Registry Explorer**
+- ShellBags are user-specific and reside in the `NTUSER.DAT` hive—offline analysis is ideal for a multi-user investigation.
+
+> 🔍 *ShellBags can prove that a folder existed and was accessed—even if the folder and its contents have been long deleted. They’re a silent log of user navigation.*
