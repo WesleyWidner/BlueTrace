@@ -1,0 +1,41 @@
+# 📜 Section 18: PowerShell Command History
+
+## 🧾 What the Code Does
+
+This section retrieves **PowerShell command history** from common log sources, capturing user-entered commands for forensic review. It first checks for detailed transcript logs, then falls back to the default command history file if transcripts are not found. All extracted commands are timestamped, enumerated, and exported to an Excel worksheet named **"PS History"**.
+
+The script supports both:
+- **Transcript Logs**: Detailed session recordings (typically in `Documents\PowerShell_transcript.*.txt`)
+- **PSReadline History**: Simpler, raw command history (`ConsoleHost_history.txt`)
+
+## 📦 What It Extracts
+
+For each command found, the script records:
+
+- **Timestamp**: The last modified time of the file (used as an approximate session timestamp).
+- **LineNumber**: The line number in the source file (useful for sequence reconstruction).
+- **Command**: The actual PowerShell command executed.
+
+Search paths include:
+- `$env:USERPROFILE\Documents\PowerShell_transcript.*.txt`
+- `$env:APPDATA\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt`
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Execution Forensics**: Reveals the exact commands run by users or attackers, including:
+  - Lateral movement (`Invoke-Command`, `Enter-PSSession`)
+  - Download cradles (`IEX`, `Net.WebClient`)
+  - Credential access (`Get-Credential`, `Mimikatz`)
+- **Incident Timeline Construction**: Commands are timestamped and ordered to assist in reconstructing attacker behavior step-by-step.
+- **Malicious Scripting Detection**: Helps analysts identify post-exploitation tooling, privilege escalation attempts, or system modification.
+- **Insider Threat Monitoring**: Identifies sensitive or unauthorized PowerShell activity by legitimate users.
+- **Baseline & Behavior Analysis**: Patterns in command usage can help separate normal administrative behavior from abnormal use.
+
+## ⚠️ Notes
+
+- Transcript logs must be **explicitly enabled** in PowerShell sessions or via group policy. If disabled, only `ConsoleHost_history.txt` may be available.
+- The `LastWriteTime` is used as a proxy for when commands were issued, but does not provide individual timestamps per line.
+- History is stored per user—each profile should be scanned for full coverage in multi-user environments.
+- Command history can be deleted or manipulated by an attacker attempting to cover their tracks.
+
+> 🧠 *PowerShell command history provides direct insight into what actions were taken on a host—making it one of the most revealing artifacts in post-incident analysis.*
