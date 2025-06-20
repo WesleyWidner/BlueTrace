@@ -1,0 +1,41 @@
+# 🧠 Section 34: NTUSER.DAT Presence (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section searches the `C:\Users` directory for the presence of the **NTUSER.DAT** file in each user profile. This registry hive file contains **per-user configuration and activity artifacts**, making it a critical focus in digital forensic investigations.
+
+It collects:
+- Which user accounts have this file present
+- The full file path
+- The last modified timestamp
+- The file size (in KB)
+
+The data is exported to the **NTUSER.DAT** worksheet in the final Excel report.
+
+## 📋 What It Extracts
+
+Each entry includes:
+
+- `Username`: The name of the user profile directory.
+- `NTUSERPath`: Full path to the `NTUSER.DAT` file.
+- `LastModified`: Timestamp indicating the last modification to the file.
+- `SizeKB`: Size of the file in kilobytes.
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **User Activity Timeline**:
+  - The `LastModified` timestamp may correspond with recent logons or user activity.
+- **Registry Artifact Collection**:
+  - The `NTUSER.DAT` file contains user-specific registry keys like `RecentDocs`, `Run`, `TypedPaths`, and `UserAssist`, which can be parsed using tools like **Regripper**, **EricZimmerman's Registry Explorer**, or **KAPE**.
+- **Persistence Detection**:
+  - Adversaries may manipulate `NTUSER.DAT`-stored settings to achieve persistence (e.g., via `Run` keys).
+- **Account Enumeration**:
+  - Helps identify stale or orphaned user profiles on the system, which could be signs of compromise or lateral movement.
+
+## ⚠️ Notes
+
+- This section **does not parse** the NTUSER.DAT file; it only confirms presence and metadata.
+- Full forensic analysis requires offline parsing with dedicated registry tools.
+- On systems with redirected profiles or roaming setups, the file may not be present in `C:\Users`.
+
+> 🔍 *NTUSER.DAT is a goldmine for per-user artifacts and should be preserved and examined during any forensic acquisition.*
