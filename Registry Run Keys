@@ -1,0 +1,46 @@
+# 🗝️ Section 23: Registry Run Keys (Enhanced for DFIR)
+
+## 🧾 What the Code Does
+
+This section scans common **Windows Registry Run and RunOnce keys**—locations frequently abused by malware for **persistence**. It extracts entry names, command strings, potential executable paths, hashes, and flags any suspicious characteristics. Results are written to an Excel sheet titled **"Registry Run Keys"**.
+
+Key enhancements for DFIR include:
+- Extraction of executable paths from complex command lines (including `rundll32.exe`)
+- SHA256 hashing for threat intelligence validation
+- Pattern-based suspicious flagging
+
+## 📦 What It Extracts
+
+For each value in the specified Run keys, the script collects:
+
+- **RegistryPath**: The full path to the Run or RunOnce key.
+- **Name**: The name of the registry entry.
+- **Value**: The command line or executable path stored in the value.
+- **Executable**: Extracted path to the primary executable from the value.
+- **SHA256**: File hash of the referenced binary (if it exists).
+- **Suspicious**: Boolean flag if indicators are detected in the value (e.g., AppData, scripts, `rundll32.exe` abuse).
+
+Monitored keys:
+- `HKCU:\Software\Microsoft\Windows\CurrentVersion\Run`
+- `HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce`
+- `HKLM:\Software\Microsoft\Windows\CurrentVersion\Run`
+- `HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce`
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Persistence Mechanism Detection**: Run keys are a classic technique for malware to survive reboots and user logins.
+- **Command & Script Analysis**: By extracting the full command and primary binary, analysts can better understand the technique and tool being deployed.
+- **Abuse Pattern Identification**: 
+  - Use of script engines (`.ps1`, `.vbs`, `.js`) in Run keys
+  - Abnormal paths (e.g., `Temp`, `AppData`)
+  - Use of `rundll32.exe` with malicious DLLs
+- **Executable Validation**: SHA256 hashes enable lookups in malware databases or threat intel platforms.
+- **User vs. System Scope**: Separation of HKCU (user) and HKLM (system-wide) provides insight into attacker privilege level and intended persistence coverage.
+
+## ⚠️ Notes
+
+- Not all Run entries are malicious. Legitimate applications use these keys for updates and startup behavior—context is essential.
+- Some commands may be obfuscated or encoded, requiring deeper static or dynamic analysis.
+- Entries pointing to non-existent files may indicate incomplete malware cleanup or broken persistence attempts.
+
+> 📌 *Registry Run keys are a prime location for detecting persistence. This section enhances visibility by combining static analysis, hashing, and contextual red-flagging—all in one sweep.*
