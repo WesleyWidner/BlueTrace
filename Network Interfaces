@@ -1,0 +1,39 @@
+# 🧠 Section 57: Network Interfaces (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section enumerates all network interfaces (adapters) on the system, collecting both active and inactive interfaces. Comprehensive adapter information aids in network forensics, device inventory, and detection of rogue or unauthorized hardware.
+
+The script:
+- Uses `Get-NetAdapter` to gather all network interfaces on the host
+- Extracts the adapter name, status (Up/Down), MAC address, link speed, and interface index for each interface
+- Outputs the collected data into the **Network Interfaces** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Name`: The name of the network interface (e.g., `Ethernet`, `Wi-Fi`, `vEthernet (Default Switch)`)
+- `Status`: The operational status of the interface (`Up`, `Down`, etc.)
+- `MACAddress`: The hardware MAC address of the adapter
+- `LinkSpeed`: The reported speed of the interface
+- `InterfaceID`: The system-assigned interface index
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Device Inventory & Change Detection**:
+  - Identifies all physical and virtual adapters present, supporting detection of unauthorized or suspicious devices.
+- **Network Forensics**:
+  - Provides MAC addresses and link speeds for correlation with DHCP, ARP, or other network artifacts.
+- **Attack Surface Analysis**:
+  - Reveals potential network entry points or interfaces that could be leveraged for persistence or lateral movement.
+- **Baseline Validation**:
+  - Enables comparison with known-good device inventories to detect changes or hardware tampering.
+
+## ⚠️ Notes
+
+- Both physical and virtual network adapters are included in the results.
+- MAC addresses may be spoofed by adversaries; always corroborate with additional evidence.
+- Link speeds and interface indexes are dependent on system and driver reporting accuracy.
+
+> 🔍 *Network interface enumeration is critical for mapping all potential communication channels and uncovering hidden or malicious adapters in forensic investigations.*
