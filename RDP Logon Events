@@ -1,0 +1,38 @@
+# 🧠 Section 56: RDP Logon Events (Event ID 1149) (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects Remote Desktop Protocol (RDP) logon events from the Windows event log, focusing on Event ID 1149, which records successful Remote Desktop authentication attempts. These events are critical for monitoring remote access to systems—both legitimate and unauthorized.
+
+The script:
+- Queries the `Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational` log for Event ID 1149
+- Retrieves up to 100 recent RDP logon events
+- Extracts the event creation time, event ID, and the flattened event message for each entry
+- Outputs the collected data into the **RDP Logons** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `TimeCreated`: The timestamp of the RDP logon event
+- `EventID`: The Windows event ID (should be 1149)
+- `Message`: The full event message (flattened to a single line for readability)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Remote Access Monitoring**:
+  - Identifies when RDP logon attempts occurred and provides context about the session and authentication.
+- **Attack Surface Analysis**:
+  - Detects potential brute force, lateral movement, or external access using RDP.
+- **Timeline and Correlation**:
+  - Correlates RDP logon times with other security events, network activity, or suspicious behavior.
+- **Threat Hunting**:
+  - Assists in identifying unauthorized or anomalous remote logons, especially those occurring after hours or from unexpected sources.
+
+## ⚠️ Notes
+
+- Only successful RDP authentication events (Event ID 1149) are collected; unsuccessful or failed attempts may be logged under different event IDs.
+- Event messages are flattened for easier parsing and review, but details may need further analysis for full context.
+- Collection is limited to the 100 most recent events unless expanded in the script.
+
+> 🔍 *Monitoring RDP logon events is essential for detecting remote access attempts, potential compromise, and building a robust incident response timeline.*
