@@ -1,0 +1,34 @@
+# 🧠 Section 58: AppCompatCache (ShimCache) (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section checks for the presence of the Windows **AppCompatCache** (also known as ShimCache), a registry-based artifact that logs executed programs for application compatibility purposes. AppCompatCache can provide evidence of program execution, even if an application has been deleted or its standard logs have been cleared.
+
+The script:
+- Attempts to access the `AppCompatCache` registry key under `HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\AppCompatCache`
+- Checks for the existence of the raw cache value and records a note if found
+- Records an error note if the key is inaccessible or does not exist
+- Outputs the result into the **AppCompatCache** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Note`: Status of the AppCompatCache key (e.g., present and requires parsing, or not available)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Program Execution Tracing**:
+  - Indicates that application execution records exist and can be parsed with specialized tools (e.g., Volatility, ShimCacheParser) to reveal historical program usage.
+- **Malware & Persistence Detection**:
+  - Identifies artifacts of malware or attacker tools that may have run on the system, even if the binaries are no longer present.
+- **Timeline Development**:
+  - Supplements other execution logs to build a more complete picture of user and process activity.
+
+## ⚠️ Notes
+
+- This script only checks for the existence of the AppCompatCache registry value; it does not parse the binary data.
+- Full analysis of AppCompatCache content requires additional forensic tools (e.g., Volatility, Eric Zimmerman's ShimCacheParser).
+- Inaccessibility may be due to insufficient permissions or a non-standard system configuration.
+
+> 🔍 *AppCompatCache is a powerful but often overlooked artifact for uncovering historical program execution—always consider deeper analysis with dedicated tools in serious investigations.*
