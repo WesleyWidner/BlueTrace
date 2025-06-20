@@ -1,0 +1,41 @@
+# 🧠 Section 69: USB Device History (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects historical information about USB storage devices connected to the system by examining the **USBSTOR** registry key. USB device history is critical for detecting data exfiltration, unauthorized device usage, and mapping physical access to the system.
+
+The script:
+- Checks for the existence of the `USBSTOR` registry key under `HKLM:\SYSTEM\CurrentControlSet\Enum\USBSTOR`
+- Recursively enumerates all subkeys representing USB devices
+- For each device entry, collects the device ID, friendly name, associated service, container ID, and registry path
+- Handles errors gracefully and provides placeholder entries if access or key retrieval fails
+- Outputs the collected data into the **USB History** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Device`: The device ID or name from the registry
+- `FriendlyName`: Human-readable device name (if available)
+- `Service`: Associated driver/service name
+- `ContainerID`: Unique identifier for the device container
+- `PSPath`: Registry path to the device entry
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Data Exfiltration & Infiltration Detection**:
+  - Identifies USB devices used for copying or introducing data, malware, or tools.
+- **User & Threat Attribution**:
+  - Maps device IDs to specific users or timeframes for investigative correlation.
+- **Policy Compliance Verification**:
+  - Checks adherence to removable media restrictions or corporate policy.
+- **Physical Access & Insider Threats**:
+  - Supports identification of unauthorized physical access or insider threat activity via external storage devices.
+
+## ⚠️ Notes
+
+- Some device entries may lack a friendly name or complete metadata; default/error values are provided in such cases.
+- Only historical registry entries are collected; the script does not determine if a device is currently attached.
+- Additional correlation with system logs or user session data may be required for timeline construction.
+
+> 🔍 *USB device history is vital for uncovering physical data movement, insider threats, and policy violations in digital forensic investigations.*
