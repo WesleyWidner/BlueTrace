@@ -1,4 +1,4 @@
-# 🚨 Blue Trace – Comprehensive Windows Forensic Artifact Collector 🚨
+# 🚨 Blue Trace – Windows Forensic Artifact Collector 🚨
 
 Blue Trace is a robust, modular, and analyst-driven PowerShell tool designed for digital forensics, incident response, and live evidence acquisition on Windows endpoints. **Whether you’re investigating targeted attacks, insider threats, malware outbreaks, or simply building a comprehensive timeline, Blue Trace puts all the critical artifacts at your fingertips—clean, structured, and export-ready.**
 
