@@ -1,36 +1,31 @@
-# --- Section 4: UAC Settings ---
-Write-Progress -Activity "Collecting UAC Settings" -Status "Running"
+# 🔐 Section 4: UAC Settings
 
-$uacRegistryPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+## 🧾 What the Code Does
 
-try {
-    $uac = Get-ItemProperty -Path $uacRegistryPath
+This section collects the current **User Account Control (UAC)** configuration from the Windows Registry and translates the raw numeric values into human-readable descriptions. The translated UAC settings are then exported to an Excel worksheet titled **"UAC Settings"** using the `Save-ToExcelSheet` function.
 
-    $translate = [PSCustomObject]@{
-        ConsentPromptBehaviorAdmin = switch ($uac.ConsentPromptBehaviorAdmin) {
-            0 {"No Prompt (Elevate silently)"} 
-            1 {"Prompt for credentials on secure desktop"}
-            2 {"Prompt for consent on secure desktop"} 
-            3 {"Prompt for credentials"}
-            4 {"Prompt for consent"} 
-            5 {"Prompt for consent for non-Windows binaries"} 
-            default {"Unknown"}
-        }
-        ConsentPromptBehaviorUser = switch ($uac.ConsentPromptBehaviorUser) {
-            0 {"Automatically deny elevation"} 
-            1 {"Prompt for credentials on secure desktop"}
-            3 {"Prompt for consent"} 
-            default {"Unknown"}
-        }
-        EnableLUA                   = if ($uac.EnableLUA -eq 1) { "UAC Enabled" } else { "UAC Disabled" }
-        PromptOnSecureDesktop       = if ($uac.PromptOnSecureDesktop -eq 1) { "Secure desktop ON" } else { "Secure desktop OFF" }
-        EnableVirtualization        = if ($uac.EnableVirtualization -eq 1) { "Enabled" } else { "Disabled" }
-        ValidateAdminCodeSignatures = if ($uac.ValidateAdminCodeSignatures -eq 1) { "Validation Required" } else { "Not Required" }
-        FilterAdministratorToken    = if ($uac.FilterAdministratorToken -eq 1) { "Split Token" } else { "Full Token" }
-    }
+If an error occurs while accessing the registry, a failure message is printed to the console in red.
 
-    Save-ToExcelSheet -SheetName "UAC Settings" -Data @($translate)
+## 📦 What It Extracts
 
-} catch {
-    Write-Host "[!] Unable to retrieve UAC settings: $_" -ForegroundColor Red
-}
+The script queries `HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System` and interprets the following UAC-related keys:
+
+- **ConsentPromptBehaviorAdmin**: How elevation prompts are handled for administrators.
+- **ConsentPromptBehaviorUser**: How elevation is handled for standard users.
+- **EnableLUA**: Whether UAC is enabled (`1`) or disabled (`0`).
+- **PromptOnSecureDesktop**: Indicates if elevation prompts appear on the secure desktop (isolated session).
+- **EnableVirtualization**: Determines if file and registry virtualization for legacy applications is enabled.
+- **ValidateAdminCodeSignatures**: Indicates if administrative binaries must be digitally signed.
+- **FilterAdministratorToken**: Controls whether the built-in Administrator account uses a full or split token.
+
+Each setting is mapped to a human-readable label for clarity.
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Security Posture Assessment**: Provides insight into the host’s resistance to privilege escalation. Weak UAC settings may indicate a relaxed or misconfigured security environment.
+- **Threat Actor Strategy Analysis**: Helps analysts understand how easily a malicious actor could elevate privileges silently or with minimal user interaction.
+- **Baseline Comparison**: Enables analysts to detect unauthorized policy changes made by malware or attackers to reduce friction in privilege escalation.
+- **Secure Desktop Evaluation**: Identifies if prompts are isolated from user space—important for mitigating UI spoofing and token hijacking attacks.
+- **Policy Validation**: Assists in compliance or configuration audits, particularly in enterprise environments where consistent UAC policy is required.
+
+> ⚙️ *UAC settings directly affect the level of friction an attacker encounters during privilege escalation. This section provides clear visibility into these critical OS-level defenses.*
