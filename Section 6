@@ -1,0 +1,25 @@
+# 🗂️ Section 6: Desktop File Timestamps (Non-Recursive)
+
+## 🧾 What the Code Does
+
+This section collects **file-level timestamp metadata** for all files located directly on the current user's Desktop. It does **not** search subdirectories (non-recursive). The data includes file names, full paths, and the last modification date, which are compiled into a PowerShell object and exported to an Excel worksheet titled **"Desktop File Timestamps"**.
+
+Real-time progress is displayed via `Write-Progress` to inform the user of ongoing activity.
+
+## 📦 What It Extracts
+
+For each file in the Desktop directory (excluding folders and subdirectories), the script extracts:
+
+- **Name**: The file’s name (e.g., `report.docx`, `payload.ps1`)
+- **FullPath**: Absolute file path to the item on disk.
+- **LastModified**: Timestamp of the last write operation (`LastWriteTime`), reflecting when the file’s contents were most recently changed.
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Timeline Enrichment**: The `LastModified` timestamp can help determine when documents or potential malicious files were accessed, altered, or created by a user.
+- **Suspicious Artifact Detection**: Analysts can scan for suspicious filenames, extensions (e.g., `.exe`, `.js`, `.bat`), or abnormal modification patterns.
+- **User Behavior Profiling**: Files placed or modified on the Desktop may indicate active user interaction and intent—important in insider threat or misuse cases.
+- **Corroborating Other Evidence**: Desktop files with timestamps matching other logs (e.g., authentication or process creation) can strengthen a chain of evidence.
+- **Non-Volatile Artifact Collection**: As the Desktop is a common staging area for both legitimate work and malicious payloads, preserving this data early is critical.
+
+> 🧾 *By capturing Desktop file metadata, this section provides valuable insights into recent user activity and file manipulation behaviors—often the first place an analyst should look for forensic leads.*
