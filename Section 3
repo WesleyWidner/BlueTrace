@@ -1,36 +1,29 @@
-# --- Section 3: Environment Variables ---
-Write-Progress -Activity "Collecting Environment Variables" -Status "Running"
+# 🌐 Section 3: Environment Variables
 
-$envVars = @()
+## 🧾 What the Code Does
 
-# Collect user-scoped environment variables
-try {
-    [System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | ForEach-Object {
-        $envVars += [PSCustomObject]@{
-            Scope = "User"
-            Name  = $_.Key
-            Value = $_.Value
-        }
-    }
-} catch {
-    Write-Warning "Failed to collect user environment variables: $_"
-}
+This section collects both **user-scoped** and **system-scoped** environment variables and exports them to an Excel sheet titled **"Environment Variables"**. It also optionally outputs the data to a CSV file on the Desktop for flat review or external processing.
 
-# Collect system-scoped environment variables
-try {
-    [System.Environment]::GetEnvironmentVariables("Machine").GetEnumerator() | ForEach-Object {
-        $envVars += [PSCustomObject]@{
-            Scope = "System"
-            Name  = $_.Key
-            Value = $_.Value
-        }
-    }
-} catch {
-    Write-Warning "Failed to collect system environment variables: $_"
-}
+Environment variables are pulled using .NET’s `System.Environment` class and organized into structured PowerShell objects with three properties: `Scope`, `Name`, and `Value`.
 
-# Export to Excel
-Save-ToExcelSheet -SheetName "Environment Variables" -Data $envVars
+## 📦 What It Extracts
 
-# Optional: Export all collected variables to CSV for flat review
-$envVars | Sort-Object Scope, Name | Export-Csv -Path $outputCsv -NoTypeInformation -Encoding UTF8
+For each environment variable discovered, the script records:
+
+- **Scope**: Indicates whether the variable is user-level (`User`) or system-level (`System`).
+- **Name**: The environment variable key (e.g., `TEMP`, `PATH`, `USERNAME`, `APPDATA`).
+- **Value**: The assigned value for the variable (often includes directory paths, system settings, or executable references).
+
+Sources:
+- `System.Environment.GetEnvironmentVariables("User")`
+- `System.Environment.GetEnvironmentVariables("Machine")`
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Execution Tracing**: Malicious binaries or scripts may use or modify environment variables to control execution behavior or evade detection.
+- **Persistence Indicators**: Attackers can embed payload paths or reference renamed malware through environment variables.
+- **User Profiling**: Variables like `USERNAME`, `APPDATA`, or custom application-defined variables help profile user activity and behavior.
+- **Detection of Tampering**: Analysts can compare current variable values against known-safe baselines to identify modifications (e.g., altered `PATH` or `TEMP` redirection).
+- **Scripting/Tool Indicators**: Some pentesting frameworks or malicious tools set unique environment variables during deployment.
+
+> 🧬 *Environment variables can act as subtle fingerprints for malicious tooling and are critical in understanding how an attacker may have customized or influenced system behavior.*
