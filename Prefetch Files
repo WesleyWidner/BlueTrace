@@ -1,0 +1,39 @@
+# 🧠 Section 66: Prefetch Files (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section enumerates all Windows **Prefetch files** on the system. Prefetch files are created by Windows to speed up the loading of applications and provide a record of executable launches, including metadata and recent run counts. Prefetch artifacts are vital for establishing program execution timelines.
+
+The script:
+- Verifies the existence of the system Prefetch directory
+- Enumerates all `.pf` Prefetch files, collecting the file name, full path, size (in KB), and last modified timestamp
+- If the Prefetch folder does not exist, records a placeholder entry
+- Outputs the collected data into the **Prefetch Files** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Name`: The name of the Prefetch file (e.g., `EXPLORER.EXE-12345678.pf`)
+- `Path`: The full file path to the Prefetch file
+- `SizeKB`: The file size in kilobytes (rounded to two decimal places)
+- `Modified`: The last write time of the Prefetch file
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Program Execution Tracing**:
+  - Reveals executables recently run on the system, including frequency and timing information.
+- **Malware & Persistence Analysis**:
+  - Identifies suspicious or anomalous executables and their activity on the host.
+- **Timeline Construction**:
+  - Assists in reconstructing user and system activity, especially when correlated with other forensic artifacts.
+- **Data Carving & Tool Use**:
+  - Informs analysts to use specialized tools (e.g., Eric Zimmerman's PECmd) for full Prefetch parsing and timeline analysis.
+
+## ⚠️ Notes
+
+- Prefetch files are stored in a **binary format**; detailed analysis requires specialized forensic tools.
+- Some systems (e.g., Windows Server editions) may have Prefetching disabled by default.
+- Prefetch files can be deleted or manipulated by attackers seeking to cover their tracks.
+
+> 🔍 *Prefetch files are a cornerstone of forensic investigations for tracking program execution—always collect and preserve them for timeline and malware analysis.*
