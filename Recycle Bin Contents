@@ -1,0 +1,34 @@
+# 🗑️ Section 11: Recycle Bin Contents
+
+## 🧾 What the Code Does
+
+This section inspects the **Recycle Bin** using the Windows Shell COM interface to extract metadata about deleted items. It gathers information such as the original file path, deletion date, size, and filename. Results are compiled into a structured PowerShell object and exported to an Excel worksheet titled **"Recycle Bin"**.
+
+It also uses `Write-Progress` to provide a visual indicator of progress while iterating through Recycle Bin contents.
+
+## 📦 What It Extracts
+
+For each item currently in the Recycle Bin, the script retrieves:
+
+- **Original Path**: The file’s location prior to deletion.
+- **Deleted Date**: The timestamp indicating when the item was deleted.
+- **Size (bytes)**: The size of the file before deletion.
+- **Name**: The name of the deleted file.
+
+These details are accessed using the COM Shell’s `Namespace(0xA)` (Recycle Bin namespace).
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **File Deletion Timeline**: Helps establish when specific files were deleted, which is essential for timeline analysis or reconstructing the sequence of an attack.
+- **Intent Determination**: Deleted files in sensitive directories (e.g., `%APPDATA%`, `System32`) may indicate an attempt to hide malicious tools or remove traces.
+- **Partial Data Recovery**: Analysts can identify and attempt to restore deleted artifacts that were not securely wiped.
+- **Correlating User Activity**: Deletions shortly before or after suspicious events (e.g., privilege escalation or data exfiltration) can point to cover-up behavior.
+- **Misuse Investigations**: Recycle Bin entries may include inappropriate content, unauthorized tools, or exfiltration evidence.
+
+## ⚠️ Notes
+
+- Only items currently in the Recycle Bin will be listed. If it was emptied or bypassed (e.g., using `Shift+Delete`), items won't appear.
+- The Shell COM interface does not provide full metadata (e.g., creation or last access times), but the deletion timestamp is critical in forensic timelines.
+- Accuracy depends on user settings; some environments may redirect or disable the Recycle Bin entirely.
+
+> 🧹 *The Recycle Bin is often a goldmine of user intent—what was meant to be discarded, hidden, or quietly removed can say a lot about behavior on a compromised system.*
