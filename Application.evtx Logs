@@ -1,0 +1,45 @@
+# 🗂️ Section 30: Application.evtx Logs (Enhanced)
+
+## 🧾 What the Code Does
+
+This section collects the **100 most recent entries** from the **Windows Application Event Log** (`Application.evtx`). It enriches events with human-readable meanings for well-known `EventID`s related to application crashes, installs, and .NET errors. The output is formatted for Excel under the **"Application Log"** worksheet.
+
+## 📦 What It Extracts
+
+Each event record includes:
+
+- **TimeCreated**: Timestamp of the event.
+- **EventID**: Numeric identifier of the log event.
+- **EventIDMeaning**: Translated label for known application-related Event IDs.
+- **Level**: Severity (e.g., Information, Warning, Error).
+- **Message**: Cleaned-up message body, single-line for easier viewing.
+
+### Mapped EventID Meanings:
+- `1000`: Application Error / Crash  
+- `1001`: Application Hang / Fault Bucket  
+- `1026`: .NET Runtime Error  
+- `11707`: Application Installed  
+- `11708`: Application Install Failed  
+- `16384`: Software Protection Service Restart  
+- `16394`: Offline Licensing Succeeded  
+- `1003`: Licensing Status Report  
+- Others default to: **"Unknown"**
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Crash Triage**:
+  - Event ID `1000` and `1026` point to specific application crashes and .NET errors.
+- **Malware Deployment Tracking**:
+  - `11707` and `11708` reveal software installation attempts—helpful when tracing initial access or persistence.
+- **Post-Breach Licensing Audits**:
+  - Events `1003`, `16384`, and `16394` can indicate reactivation or tampering with licensing services.
+- **Lateral Movement Clues**:
+  - Apps that crash or hang shortly after login could point to injected malware or hijacked binaries.
+
+## ⚠️ Notes
+
+- Requires **Administrator privileges** for consistent access to `Application.evtx`.
+- Max events set to **100** for speed. Adjust as needed for deeper timeline review.
+- Best used alongside `System.evtx` and `Security.evtx` for full host visibility.
+
+> 📖 *Application logs are the voice of userland software—when something breaks, hangs, or installs itself without consent, these logs are your first clue.*
