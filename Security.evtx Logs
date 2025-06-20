@@ -1,0 +1,49 @@
+# 🔐 Section 28: Security.evtx Logs (Enhanced for DFIR)
+
+## 🧾 What the Code Does
+
+This section extracts the **100 most recent entries** from the Windows **Security event log** (`Security.evtx`) and enriches key events with human-readable descriptions. It uses a custom function to interpret well-known **Event IDs** related to authentication, privilege escalation, and process creation.
+
+Each log entry is processed, normalized, and exported to an Excel worksheet titled **"Security Log"**.
+
+## 📦 What It Extracts
+
+For each entry, the script gathers:
+
+- **TimeCreated**: When the event was logged.
+- **EventID**: Numeric ID that defines the event type.
+- **EventIDMeaning**: Human-friendly description of what the event signifies (based on known security-related IDs).
+- **Level**: Severity or importance (e.g., Information, Warning).
+- **Message**: Cleaned and flattened event message content for easy reading.
+
+Supported `EventIDMeaning` mappings include:
+- `4624`: Account Logon Success  
+- `4625`: Account Logon Failure  
+- `4672`: Special Privileges Assigned  
+- `4688`: New Process Created  
+- `4689`: Process Terminated  
+- `4634`: Account Logoff  
+- `4648`: Explicit Credential Logon Attempt  
+- `4768`: Kerberos TGT Request  
+- `4769`: Kerberos Service Ticket Request  
+- `4776`: NTLM Authentication Attempt  
+- `4627`: Group Membership Enumerated  
+- All others default to: **"Other / Unknown"**
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Authentication Audit**: Detects brute-force attempts, successful logons, and suspicious credential usage.
+- **Privilege Escalation Detection**: `4672` identifies use of high-privilege tokens (e.g., Administrator, SYSTEM).
+- **Process Creation Monitoring**: `4688` logs new process executions, useful for detecting malicious commands or malware loading.
+- **Kerberos & NTLM Traffic**: Tracks identity authentication patterns which may indicate lateral movement or pass-the-ticket attacks.
+- **Timeline Correlation**: Helps align user and attacker actions with file activity, network logs, or other system telemetry.
+- **Threat Hunting**: Analysts can search for known patterns or anomalies within enriched event logs for investigation or threat modeling.
+
+## ⚠️ Notes
+
+- Requires administrative privileges to access the `Security` log.
+- Event log size and retention policies may impact how far back the log goes.
+- This collection is limited to 100 events for performance—can be expanded for deep-dive analysis.
+- Message content is flattened for readability; for full fidelity, export raw logs separately if needed.
+
+> 📖 *The Windows Security log is one of the most valuable sources of forensic truth. This section brings clarity and structure to that signal, enabling faster triage, smarter investigations, and more defensible findings.*
