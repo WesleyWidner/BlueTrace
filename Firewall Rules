@@ -1,0 +1,40 @@
+# 🧠 Section 49: Firewall Rules (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects and decodes all Windows Firewall rules configured on the system. Firewall rules control network traffic flow and can be used by attackers to open, close, or restrict network connections for persistence, exfiltration, or defense evasion.
+
+The script:
+- Uses `Get-NetFirewallRule` to enumerate all firewall rules on the system
+- Maps numeric values for profile, direction, action, and enabled/disabled state into human-readable descriptions using helper functions
+- Collects the rule name, enabled status, direction (inbound/outbound), action (allow/block), and network profile(s) for each rule
+- Outputs the collected data into the **Firewall Rules** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Name`: The display name of the firewall rule
+- `Enabled`: Whether the rule is enabled (`True`/`False`)
+- `Direction`: Rule direction (`Inbound` or `Outbound`)
+- `Action`: The action enforced by the rule (`Allow` or `Block`)
+- `Profile`: The network profile(s) the rule applies to (`Domain`, `Private`, `Public`, or combinations thereof)
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Persistence & Evasion Detection**:
+  - Identifies rules created or altered to allow attacker traffic or block defensive tools.
+- **Incident Scoping**:
+  - Reveals firewall changes during the suspected incident timeline.
+- **Attack Surface Mapping**:
+  - Assesses which ports, protocols, or directions are open to unauthorized access.
+- **Baseline Comparison**:
+  - Supports detection of new, modified, or missing firewall rules relative to standard configurations.
+
+## ⚠️ Notes
+
+- Only rule metadata is collected; port, protocol, and program path details are not included in this section.
+- Rule values are translated for readability using local helper functions.
+- Custom, disabled, or poorly documented rules should be scrutinized for suspicious changes.
+
+> 🔍 *Windows Firewall rules can be quietly manipulated by adversaries to enable C2, lateral movement, or data exfiltration. Always review firewall configurations during a forensic investigation.*
