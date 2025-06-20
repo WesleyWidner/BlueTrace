@@ -1,0 +1,48 @@
+# 🖥️ Section 29: System Event Log Collection (Enhanced)
+
+## 🧾 What the Code Does
+
+This section collects and interprets the **100 most recent entries** from the **Windows System event log** (`System.evtx`). It enriches important system-level Event IDs with human-readable meanings and prepares the output for DFIR triage or timeline correlation.
+
+Collected entries are written to a worksheet named **"System Log"**.
+
+## 📦 What It Extracts
+
+For each event, the script captures:
+
+- **TimeCreated**: Timestamp of the system event.
+- **EventID**: The numeric identifier for the system event.
+- **EventIDMeaning**: A friendly explanation of what the event ID represents.
+- **Level**: Severity or importance of the event (e.g., Information, Warning, Error).
+- **Message**: The raw message content, flattened for easy reading in Excel.
+
+Mapped `EventIDMeaning` values include:
+- `6005`: Event Log Service Started  
+- `6006`: Event Log Service Stopped  
+- `6008`: Unexpected Shutdown  
+- `7000`: Service Failed to Start  
+- `7026`: Driver Load Failure  
+- `7045`: Service Installed  
+- `1014`: DNS Name Resolution Timed Out  
+- Others default to: **"Unknown"**
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **System Timeline Analysis**:
+  - Events like `6008` (Unexpected Shutdown) and `6005/6006` can help correlate crash timelines or system tampering.
+- **Service Abuse Detection**:
+  - Events `7045`, `7000`, `7023`, and `7040` reveal possible service installations, failures, or configuration changes.
+- **Persistence Hunting**:
+  - Suspicious services or drivers loaded at boot (`7026`) can indicate persistence mechanisms or rootkits.
+- **DNS Failures / Network Issues**:
+  - Frequent `1014` entries might indicate command-and-control communication failures.
+- **Environmental Context**:
+  - Allows analysts to see what the system was doing around the time of compromise or suspicious activity.
+
+## ⚠️ Notes
+
+- Must be run as **Administrator** to guarantee access to the System log.
+- Output is limited to the **latest 100 entries** for performance. This value can be increased as needed.
+- For large-scale investigations, combine this with security, application, and custom logs for a holistic view.
+
+> 📖 *The System log is a forensic anchor—it shows us when the host wakes, crashes, changes configuration, or suffers infrastructure failures. Every alert should be aligned with system-level activity for full context.*
