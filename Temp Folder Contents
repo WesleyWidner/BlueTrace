@@ -1,0 +1,33 @@
+# ♻️ Section 12: Temp Folder Contents
+
+## 🧾 What the Code Does
+
+This section inspects the user’s **TEMP directory** (`$env:TEMP`) and recursively enumerates all files within it. For each file, it gathers basic metadata—file path, size, and last modified timestamp—and sorts the results by most recently modified. The final dataset is exported to an Excel worksheet titled **"Temp Folder"**.
+
+Real-time progress is shown with `Write-Progress`, and the script gracefully handles access errors with `try/catch`.
+
+## 📦 What It Extracts
+
+For each file in the TEMP directory, the script collects:
+
+- **FullName**: The absolute path to the file.
+- **Length**: The file’s size in bytes.
+- **LastWriteTime**: The date and time the file was last modified, formatted as `yyyy-MM-dd HH:mm:ss`.
+
+The output is sorted by `LastWriteTime` in descending order (newest files first).
+
+## 🛠️ How It Can Be Used by Digital Forensic Analysts
+
+- **Malware & Script Staging Detection**: Temporary directories are commonly used by attackers to stage payloads or execute scripts, especially when using LOLBins or download-cradle attacks.
+- **Volatile Evidence Collection**: TEMP folders often contain remnants of installation routines, decompressed payloads, browser caches, or dropped binaries.
+- **Incident Timeline Support**: Recently modified files in TEMP may align with known compromise windows, supporting lateral movement or data theft timelines.
+- **Abnormal Usage Indicators**: Unusual file types (e.g., `.ps1`, `.bat`, `.exe`) or high modification frequency in the TEMP directory may suggest unauthorized activity.
+- **Application and Tool Residue**: Forensics tools, remote support software, or unauthorized utilities may leave artifacts here during execution.
+
+## ⚠️ Notes
+
+- TEMP folder contents are highly volatile and may be cleared by system or application events (e.g., after reboot or software update).
+- Only the currently logged-in user’s TEMP directory is scanned. For multi-user systems, each user's TEMP path should be checked individually.
+- TEMP directories are common targets for both legitimate and malicious software behavior—context matters.
+
+> 🔍 *The TEMP folder is a high-value location in forensic investigations, offering insights into both user and attacker activity within the ephemeral workspace of the operating system.*
