@@ -1,0 +1,39 @@
+# 🧠 Section 74: Browser Cache (Presence Check Only - Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section performs a **presence check** for browser cache folders associated with Google Chrome, Microsoft Edge, and Mozilla Firefox. Browser cache directories can contain remnants of visited websites, media, and session artifacts relevant to forensic investigations, even if web history is deleted.
+
+The script:
+- Defines the default cache folder locations for Chrome, Edge, and Firefox
+- Checks if each cache path exists for the current user profile
+- Records the browser name, path checked, existence status, and a status note for each cache location
+- Outputs the results into the **Browser Cache** worksheet of the Excel report
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `Browser`: The browser for which the cache location is being checked
+- `Path`: The full path to the cache folder
+- `Exists`: Whether the cache folder was found (`Yes` or `No`)
+- `Note`: Status or analysis note regarding the cache folder
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Web Artifact Triage**:
+  - Confirms the presence of browser cache folders for potential further acquisition and analysis.
+- **Data Recovery & Artifact Discovery**:
+  - Identifies available sources for recovering cached web content, images, or session data.
+- **Anti-Forensics Detection**:
+  - Detects deleted, missing, or manipulated cache folders as a sign of anti-forensic activity or privacy tool usage.
+- **Acquisition Planning**:
+  - Informs analysts which artifacts may be worth targeting for deeper browser cache parsing.
+
+## ⚠️ Notes
+
+- This script only checks for the presence of browser cache folders; it does not parse or extract their contents.
+- Actual cache locations may vary with non-default browser profiles or portable installations.
+- Detailed cache artifact analysis requires separate parsing tools and deeper artifact acquisition.
+
+> 🔍 *Browser cache folders can hold valuable forensic evidence of user web activity—even after attempts to clear history. Always check for their presence during triage.*
