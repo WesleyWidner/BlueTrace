@@ -1,0 +1,45 @@
+# 🧠 Section 73: SQLite Browser Data Reader & History Collector (Enhanced for DFIR)
+
+## 📌 What the Code Does
+
+This section collects **browser history artifacts** from Google Chrome, Microsoft Edge, and Mozilla Firefox by directly reading their respective SQLite databases. It is designed to identify URLs, titles, and timestamps for browsing activity within the past seven days, helping analysts quickly build a user’s recent web activity profile.
+
+The script:
+- Downloads and loads the necessary SQLite .NET assembly if not present
+- Defines functions to safely read and query browser SQLite databases (`History` for Chrome/Edge, `places.sqlite` for Firefox)
+- Recursively locates all user browser profiles and their database files
+- Executes targeted SQL queries to extract browsing activity within the last seven days
+- Collects URLs, titles, last visit times, browser identification, and source database paths
+- Outputs the collected data into the **Browser History** worksheet of the Excel report (or as CSV if Excel export fails)
+
+## 📋 What It Extracts
+
+Each record includes:
+
+- `url`: The visited website address
+- `title`: The page title of the URL
+- `LastVisit`: The timestamp (in human-readable format) of the last visit to the URL
+- `Browser`: The browser from which the record was extracted (Chrome, Edge, Firefox)
+- `SourceDB`: The file path to the database the data was collected from
+
+## 🧠 How It Can Be Used by Digital Forensic Analysts
+
+- **Recent Web Activity Reconstruction**:
+  - Rebuilds a timeline of user browsing history from multiple browsers for the past week.
+- **Malicious Infrastructure Discovery**:
+  - Identifies access to phishing sites, command-and-control servers, or known malicious domains.
+- **Insider Threat & Data Exfiltration**:
+  - Reveals visits to file-sharing or webmail sites not otherwise captured by security tools.
+- **User Intent & Behavior Profiling**:
+  - Helps establish what the user was researching, accessing, or communicating online.
+- **Attribution & Cross-Artifact Correlation**:
+  - Cross-references browser artifacts with DNS cache, downloads, and USB usage for richer context.
+
+## ⚠️ Notes
+
+- Requires access to browser SQLite databases; files may be locked if the browser is open (the script makes a temporary copy).
+- Covers only the past seven days of activity by default—modify the date calculations for broader timeframes.
+- Not all browser profiles may be detected if custom install locations or profiles are used.
+- Some anti-forensic tools or privacy features may clear or obfuscate browser history.
+
+> 🔍 *Directly extracting browser history from SQLite artifacts provides powerful insight into user activity and potential threat vectors, making it a key component of DFIR investigations.*
