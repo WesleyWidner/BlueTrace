@@ -6,7 +6,7 @@ Blue Trace is a robust, modular, and analyst-driven PowerShell tool designed for
 
 ## 🧬 What is Blue Trace?
 
-**Blue Trace** is an open-source, extensible DFIR (Digital Forensics and Incident Response) artifact collector and evidence packager. It’s engineered to sweep, extract, and organize *hundreds of key Windows artifacts*—from volatile memory data and user activity logs, to deep registry analysis and browser forensics.
+**Blue Trace** is an extensible DFIR (Digital Forensics and Incident Response) artifact collector and evidence packager. It’s engineered to sweep, extract, and organize *hundreds of key Windows artifacts*—from volatile memory data and user activity logs, to deep registry analysis and browser forensics.
 
 Blue Trace outputs findings directly into a well-organized Excel workbook (and supporting CSVs), making review, triage, and reporting seamless for analysts and investigators.
 
