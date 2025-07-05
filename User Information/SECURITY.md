@@ -33,6 +33,5 @@ We are committed to acknowledging valid reports and will provide updates as we w
 
 * We may reach out to you for further information or clarification regarding the reported issue.
 * If you provide a solution or recommendation that helps resolve the issue, please be aware that **financial compensation is not required or guaranteed**.
-* Any potential compensation or reward is at the sole discretion of White Hat Wes Cybersecurity and **may be discussed privately on a case-by-case basis**.
 
 Thank you for helping us keep Blue Trace safe and secure!
