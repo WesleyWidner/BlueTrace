@@ -26,4 +26,4 @@ All notable changes to **Blue Trace** will be documented in this file.
 ### 🐞 Fixed
 
 - **Bug fixes:** Resolved scan module stability issues, UI glitches, and improper handling of long file paths.
-- **Special characters:** Improved output handling for file and folder names with special 
+- **Special characters:** Improved output handling for file and folder names with special characters. 
