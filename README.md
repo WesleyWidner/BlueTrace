@@ -8,7 +8,7 @@
 
 * **End-to-End Artifact Collection:** Gathers user, system, network, security, and forensic artifacts in a single automated pass.
 * **Custom & Preconfigured Scans:** Choose from incident response, networking, system health, compliance, or design your own scan sets.
-* **Dashboard & Scan History:** Visualize current device health, review past scans, and track system changes over time.
+* **Dashboard & Scan History:** Visualize current device health, past scans, and track system changes over time.
 * **Multiple Export Formats:** Export scan results as **JSON**, **XLSX**, **TXT**, or **CSV**. JSON scans can be converted to full PDF reports.
 
 ---
