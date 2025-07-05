@@ -20,7 +20,7 @@ The dashboard displays real-time and historical insights, including:
 * **Basic Information:** Device name, MAC address, hostname, user name, etc.
 * **Security Status:** UAC, encryption, antivirus status, etc.
 * **System Health:** Disk usage, RAM utilization, CPU load, Windows Update status.
-* **Recent Scan History:** Quick access to all previous scan results and reports.
+* **Recent Scan History:** Identify previous scans ran during the session.
 
 ---
 
