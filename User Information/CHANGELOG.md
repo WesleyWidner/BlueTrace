@@ -4,11 +4,11 @@ All notable changes to Blue Trace will be documented in this file.
 
 ⸻
 
-[2.0.0.0] – 2024-07-05
+[2.0.0.0] – 2025-07-05
 
 ✨ Added
 	•	Modern dashboard UI: Real-time scan progress, compliance indicators, and summary blocks.
-	•	Scan history: Full session logging with metadata. 
+	•	Scan history: Full session logging with metadata.
 	•	PDF report generation: Create detailed PDF reports directly from JSON scan files.
 	•	Custom scan profiles: Users can build, save, and rerun their own scan sets.
 	•	Expanded scan modules: Support for 60+ forensic, system, and network artifacts (see README for the full list).
@@ -24,3 +24,9 @@ All notable changes to Blue Trace will be documented in this file.
 🐞 Fixed
 	•	Bug fixes: Resolved scan module stability issues, UI glitches, and improper handling of long file paths.
 	•	Special characters: Improved output handling for file and folder names with special characters.
+
+⸻
+
+(For previous versions and unreleased changes, see prior tags or releases.)
+
+⸻
