@@ -4,7 +4,7 @@ All notable changes to **Blue Trace** will be documented in this file.
 
 ---
 
-## [2.0.0.0] – 2024-07-05
+## [2.0.0.0] – 2025-07-05
 
 ### ✨ Added
 
