@@ -28,86 +28,85 @@ The dashboard displays real-time and historical insights, including:
 
 Blue Trace supports a wide array of forensic and diagnostic modules. Each scan can be run individually or grouped into scan profiles:
 
-| Scan Name                 | Function                             |
-| ------------------------- | ------------------------------------ |
-| SYSTEMINFORMATION         | System details & hardware info       |
-| INSTALLEDPROGRAMS         | Installed applications inventory     |
-| ENVIRONMENTVARIABLES      | Environment variables                |
-| UACSETTINGS               | User Account Control status          |
-| WINDOWSVERSIONINFO        | OS version & build info              |
-| DESKTOPFILETIMESTAMPS     | Desktop file access & creation times |
-| FILEMETADATA              | Metadata for specified files         |
-| HIDDENFILESONC            | Hidden files on C:\\                 |
-| ALTERNATEDATASTREAMS      | Files with alternate data streams    |
-| FILESACCESSEDLAST14DAYS   | Files accessed in last 14 days       |
-| RECYCLEBINCONTENTS        | Current Recycle Bin files            |
-| TEMPFOLDERCONTENTS        | Temp folder contents                 |
-| VOLUMESHADOWCOPIES        | Volume Shadow Copies                 |
-| SYMBOLICLINKSANDJUNCTIONS | Symbolic links and junction points   |
-| RUNNINGPROCESSES          | Active process list                  |
-| LOADEDDLLS                | Loaded DLLs in memory                |
-| PROCESSTREEWMI            | WMI-based process tree               |
-| POWERSHELLHISTORY         | PowerShell command history           |
-| PARENTCHILDPROCESSTREE    | Full parent-child process map        |
-| WMIACTIVITYLOGS           | WMI activity logs                    |
-| SCHEDULEDTASKS            | Scheduled Tasks                      |
-| STARTUPFOLDERITEMS        | Startup folder entries               |
-| REGISTRYRUNKEYS           | Run/RunOnce registry keys            |
-| SERVICEINFORMATION        | Windows services status              |
-| WMIEVENTCONSUMERS         | WMI event consumers                  |
-| COMHIJACKINGENTRIES       | Suspicious COM registry entries      |
-| DLLSEARCHORDERHIJACKS     | Potential DLL hijacks                |
-| SECURITYEVENTLOG          | Security event log extract           |
-| SYSTEMEVENTLOG            | System event log extract             |
-| APPLICATIONEVENTLOG       | Application event log extract        |
-| SETUPEVENTLOG             | Setup event log extract              |
-| WINDOWSPOWERSHELLLOG      | PowerShell logs                      |
-| POWERSHELLOPERATIONALLOG  | PowerShell operational logs          |
-| NTUSERDAT                 | User NTUSER.DAT checks               |
-| RECENTDOCS                | Recently opened documents            |
-| USERASSIST                | UserAssist registry data             |
-| SHELLBAGS                 | ShellBag artifacts                   |
-| TYPEDPATHS                | TypedPaths registry entries          |
-| RUNMRU                    | Run MRU entries                      |
-| JUMPLISTS                 | JumpLists data                       |
-| CLIPBOARDHISTORY          | Clipboard history                    |
-| ACCOUNTLOCKOUTS           | Account lockout events               |
-| CREDENTIALMANAGER         | Credential Manager items             |
-| NETUSER                   | User accounts                        |
-| NETLOCALGROUP             | Local group memberships              |
-| WHOAMIGROUPS              | Whoami group membership              |
-| MACADDRESSES              | Network interface MAC addresses      |
-| HOSTSFILE                 | Hosts file entries                   |
-| FIREWALLRULES             | Firewall rules                       |
-| DNSCACHE                  | DNS resolver cache                   |
-| ARPCACHE                  | ARP cache                            |
-| LOGONEVENTS               | Logon/logoff events                  |
-| BAMDAMACTIVITY            | BAM/DAM user activity                |
-| NETSTATOUTPUT             | Active network connections           |
-| IPCONFIGDISPLAYDNS        | IP config / display DNS              |
-| RDPLOGONEVENTS            | RDP logon events                     |
-| NETWORKINTERFACES         | Network interfaces                   |
-| APPCOMPATCACHE            | AppCompatCache data                  |
-| MUICACHE                  | MUI cache artifacts                  |
-| RECENTAPPS                | Recent app usage                     |
-| RECENTFILECACHE           | Recent file cache                    |
-| SRUM                      | SRUM usage data                      |
-| SAMHIVE                   | SAM registry hive                    |
-| SECURITYHIVE              | Security registry hive               |
-| USRCLASSDAT               | UsrClass.dat checks                  |
-| PREFETCHFILES             | Prefetch file analysis               |
-| AMCACHECHECK              | Amcache registry artifacts           |
-| DOWNLOADSFOLDER           | Downloads folder inventory           |
-| USBHISTORY                | USB device history                   |
-| LNKFILES                  | Shortcut (.lnk) files                |
-| SYSTEMHIVE                | System registry hive                 |
-| SOFTWAREHIVE              | Software registry hive               |
-| BITLOCKERSTATUS           | BitLocker status                     |
-| GROUPPOLICYRESULTS        | Group Policy Results                 |
-| WINDOWSDEFENDERSTATUS     | Defender/AV status                   |
-| WERCRASHDUMPS             | Windows Error Reporting crash dumps  |
-| IMAGESVIDEOSINVENTORY     | Image and video file inventory       |
-
+| Scan Name                     | Description                                              |
+|-------------------------------|----------------------------------------------------------|
+| SYSTEMINFORMATION             | Collects detailed system and hardware information         |
+| INSTALLEDPROGRAMS             | Lists installed applications and software                 |
+| ENVIRONMENTVARIABLES          | Extracts system environment variables                     |
+| UACSETTINGS                   | Checks User Account Control configuration                 |
+| WINDOWSVERSIONINFO            | Retrieves Windows version and build information           |
+| DESKTOPFILETIMESTAMPS         | Reports access and creation times of desktop files        |
+| FILEMETADATA                  | Gathers metadata for specified files                      |
+| HIDDENFILESONC                | Identifies hidden files on the C:\ drive                  |
+| ALTERNATEDATASTREAMS          | Detects files containing alternate data streams           |
+| FILESACCESSEDLAST14DAYS       | Lists files accessed within the last 14 days              |
+| RECYCLEBINCONTENTS            | Extracts current contents of the Recycle Bin              |
+| TEMPFOLDERCONTENTS            | Lists contents of temporary folders                       |
+| VOLUMESHADOWCOPIES            | Detects existing Volume Shadow Copies                     |
+| SYMBOLICLINKSANDJUNCTIONS     | Identifies symbolic links and junction points             |
+| RUNNINGPROCESSES              | Lists currently running processes                         |
+| LOADEDDLLS                    | Extracts loaded DLLs in memory                            |
+| PROCESSTREEWMI                | Generates process tree using WMI                          |
+| POWERSHELLHISTORY             | Retrieves PowerShell command history                      |
+| PARENTCHILDPROCESSTREE        | Maps full parent-child process relationships              |
+| WMIACTIVITYLOGS               | Extracts WMI activity logs                                |
+| SCHEDULEDTASKS                | Lists scheduled tasks configured on the system            |
+| STARTUPFOLDERITEMS            | Reports items in startup folders                          |
+| REGISTRYRUNKEYS               | Extracts Run and RunOnce registry keys                    |
+| SERVICEINFORMATION            | Provides status of Windows services                       |
+| WMIEVENTCONSUMERS             | Detects WMI event consumers                               |
+| COMHIJACKINGENTRIES           | Identifies suspicious COM hijacking registry entries      |
+| DLLSEARCHORDERHIJACKS         | Detects potential DLL search order hijacks                |
+| SECURITYEVENTLOG              | Extracts entries from the Security Event Log              |
+| SYSTEMEVENTLOG                | Extracts entries from the System Event Log                |
+| APPLICATIONEVENTLOG           | Extracts entries from the Application Event Log           |
+| SETUPEVENTLOG                 | Extracts entries from the Setup Event Log                 |
+| WINDOWSPOWERSHELLLOG          | Retrieves standard PowerShell logs                        |
+| POWERSHELLOPERATIONALLOG      | Retrieves PowerShell operational logs                     |
+| NTUSERDAT                     | Extracts user-specific NTUSER.DAT data                    |
+| RECENTDOCS                    | Lists recently opened documents                          |
+| USERASSIST                    | Extracts UserAssist registry artifacts                    |
+| SHELLBAGS                     | Reports ShellBag (folder view) artifacts                  |
+| TYPEDPATHS                    | Extracts TypedPaths registry entries                      |
+| RUNMRU                        | Retrieves Run Most Recently Used (MRU) entries            |
+| JUMPLISTS                     | Extracts JumpLists application usage data                 |
+| CLIPBOARDHISTORY              | Retrieves clipboard history                               |
+| ACCOUNTLOCKOUTS               | Reports account lockout events                            |
+| CREDENTIALMANAGER             | Extracts saved credentials from Credential Manager        |
+| NETUSER                       | Lists user accounts                                       |
+| NETLOCALGROUP                 | Lists local group memberships                             |
+| WHOAMIGROUPS                  | Reports current user's group memberships                  |
+| MACADDRESSES                  | Lists MAC addresses of network interfaces                 |
+| HOSTSFILE                     | Extracts entries from the Hosts file                      |
+| FIREWALLRULES                 | Lists configured Windows Firewall rules                   |
+| DNSCACHE                      | Extracts current DNS resolver cache                       |
+| ARPCACHE                      | Lists entries from the ARP cache                          |
+| LOGONEVENTS                   | Reports logon and logoff events                           |
+| BAMDAMACTIVITY                | Extracts BAM/DAM (application activity) data              |
+| NETSTATOUTPUT                 | Lists active network connections                          |
+| IPCONFIGDISPLAYDNS            | Retrieves IP configuration and DNS cache                  |
+| RDPLOGONEVENTS                | Reports Remote Desktop logon events                       |
+| NETWORKINTERFACES             | Lists network interfaces and configurations               |
+| APPCOMPATCACHE                | Extracts AppCompatCache execution artifacts               |
+| MUICACHE                      | Reports MUI (application display name) cache              |
+| RECENTAPPS                    | Lists recently used applications                          |
+| RECENTFILECACHE               | Extracts recent file cache information                    |
+| SRUM                          | Retrieves System Resource Usage Monitor (SRUM) data       |
+| SAMHIVE                       | Extracts Security Account Manager (SAM) registry hive     |
+| SECURITYHIVE                  | Extracts Security registry hive                           |
+| USRCLASSDAT                   | Reports UsrClass.dat shell configuration data             |
+| PREFETCHFILES                 | Analyzes Prefetch files for application execution         |
+| AMCACHECHECK                  | Extracts Amcache registry artifacts                       |
+| DOWNLOADSFOLDER               | Inventories contents of the Downloads folder              |
+| USBHISTORY                    | Reports USB device connection history                     |
+| LNKFILES                      | Extracts shortcut (.lnk) file artifacts                   |
+| SYSTEMHIVE                    | Extracts System registry hive                             |
+| SOFTWAREHIVE                  | Extracts Software registry hive                           |
+| BITLOCKERSTATUS               | Reports BitLocker encryption status                       |
+| GROUPPOLICYRESULTS            | Extracts applied Group Policy results                     |
+| WINDOWSDEFENDERSTATUS         | Reports Windows Defender and AV status                    |
+| WERCRASHDUMPS                 | Extracts Windows Error Reporting (WER) crash dumps        |
+| IMAGESVIDEOSINVENTORY         | Inventories image and video files                         |
 ---
 
 ## 🗂️ Output Formats
