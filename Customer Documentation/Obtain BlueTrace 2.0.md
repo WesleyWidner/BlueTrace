@@ -33,7 +33,7 @@ Please provide all of the following details in your request:
 ### 3. What Happens Next?
 
 - We will review your request and reach out for any additional information required.
-- Once approved, you will receive a secure download link and installation instructions for Blue Trace.
+- Once approved, you will receive a secure download folder and documentation for Blue Trace.
 
 ---
 
