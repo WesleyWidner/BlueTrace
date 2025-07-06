@@ -18,11 +18,13 @@ Email your request to:
 
 Please provide all of the following details in your request:
 
-- **Company Name:**  
-- **Address:**  
-- **Cell-Phone Number:**  
+- **Full Name:**
+- **Cell-Phone Number:** 
+- **Company Name: If Applicable**  
+- **Address: For Companies Only**   
 - **Number of Devices:**  
-- **Intended Purpose/Use Case:**  
+- **Intended Purpose/Use Case:**
+
 
 *(Example: “Internal IT forensics and compliance reporting on 15 endpoints.”)*
 
