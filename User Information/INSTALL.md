@@ -28,41 +28,38 @@ This document explains how to install and launch **Blue Trace** (v2.0.0.0) on yo
 
 ---
 
-## Installation Steps
+
+
+# Blue Trace Installation Guide
 
 ### **1. Download Blue Trace**
 
-* Obtain the latest MSIX/installer bundle from your trusted source or release page:
+### **2. Unzip Blue Trace Release Folder**
 
-  ```
-  BlueTrace_2.0.0.0_x64.msixbundle
-  ```
+- Save the folder to your preferred destination.
 
-### **2. Install the Application**
+### **3. Open Blue Trace Release Folder**
 
-* **Double-click** the `.msixbundle` file to start the installation with the Windows App Installer.
-* Follow the on-screen prompts:
+- Open the `BlueTrace_2.0.0.0_Test` folder.
 
-  * Click **"Install"** or **"Reinstall"** if upgrading.
-  * Accept any security or trust dialogs (the publisher should display as **White Hat Wes Cybersecurity**).
+### **4. Install the Security Certificate**
 
-**Note:**
-If Windows blocks the installation, right-click the installer, select **Properties**, and check **"Unblock"** at the bottom if available.
+- Double-click `BlueTrace_2.0.0.0_x64 Security Certificate`.
+- Click **Install Certificate**.
+- For **Store Location**, select **Local Machine**.
+- Choose **Place all certificates in the following store**, then select **Trusted Root Certification Authorities**.
+- Click **Finish** to complete the certificate installation.
 
-### **3. Launch Blue Trace**
+### **5. Install Blue Trace Application**
 
-* Once installed, **click "Launch"** in the installer window or find "Blue Trace" in your Start Menu.
-* The main dashboard will appear.
+- Return to the **Blue Trace Release** folder.
+- Double-click the `BlueTrace` (**APPINSTALLER**) file.
+- Click **Install** to begin the application installation.
 
----
+### **6. Launch Blue Trace**
 
-## Quick Start
-
-1. **Open Blue Trace** from your Start Menu.
-2. **Select a scan profile** (Incident Response, Networking, System Health, Compliance) or create a custom scan.
-3. **Click "Start Scan"** and follow the progress bar.
-4. **View scan results** on the dashboard, export them in your preferred format, or generate a PDF report.
-5. **Review past scans** in the Scan History tab.
+- Once installed, open the **Start Menu** and search for **Blue Trace**.
+- *(Optional)* Drag **Blue Trace** to your desktop for easy access.
 
 ---
 
