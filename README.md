@@ -28,7 +28,7 @@ The dashboard displays real-time and historical insights, including:
 
 Blue Trace supports a wide array of forensic and diagnostic modules. Each scan can be run individually or grouped into scan profiles:
 
-| Scan Name                     | Description                                              |
+| Section Name                     | Description                                              |
 |-------------------------------|----------------------------------------------------------|
 | SYSTEMINFORMATION             | Collects detailed system and hardware information         |
 | INSTALLEDPROGRAMS             | Lists installed applications and software                 |
