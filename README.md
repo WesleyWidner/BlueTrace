@@ -39,7 +39,7 @@ Blue Trace supports a wide array of forensic and diagnostic modules. Each scan c
 | FILEMETADATA                  | Gathers metadata for specified files                      |
 | HIDDENFILESONC                | Identifies hidden files on the C:\ drive                  |
 | ALTERNATEDATASTREAMS          | Detects files containing alternate data streams           |
-| FILESACCESSEDLAST14DAYS       | Lists files accessed within the last 14 days              |
+| FILESACCESSEDLAST7DAYS        | Lists files accessed within the last 7 days               |
 | RECYCLEBINCONTENTS            | Extracts current contents of the Recycle Bin              |
 | TEMPFOLDERCONTENTS            | Lists contents of temporary folders                       |
 | VOLUMESHADOWCOPIES            | Detects existing Volume Shadow Copies                     |
