@@ -3,6 +3,44 @@
 All notable changes to **Blue Trace** will be documented in this file.
 
 ---
+---
+
+## [3.0.0.0] – 2025-07-08
+
+### ✨ Added
+
+- **System Artifacts Page** with support for:
+  - SOFTWARE hive
+  - SYSTEM hive
+  - SAM hive
+  - SECURITY hive
+  - LNK file artifacts
+  - PREFETCH file artifacts
+
+- **Multi-Artifact Correlation:**
+  - Preconfigured scan profile: `Artifact Correlation`
+  - JSON & CSV export formats
+  - Sections include: LOADEDDLLS, POWERSHELLHISTORY, POWERSHELLOPERATIONALLOG, WINDOWSPOWERSHELLLOG, PARENTCHILDPROCESSTREE, PROCESSTREEWMI, RUNNINGPROCESSES, SCHEDULEDTASKS, REGISTRYRUNKEYS, RECENTAPPS, DESKTOPFILETIMESTAMPS, DOWNLOADSFOLDER, JUMPLISTS, RECENTDOCS, RECYCLEBINCONTENTS, SHELLBAGS, USERASSIST, LOGONEVENTS, RDPLOGONEVENTS, ACCOUNTLOCKOUTS, NETUSER, NETLOCALGROUP, WHOAMIGROUPS, NETSTATOUTPUT, NETWORKINTERFACES, DNSCACHE, IPCONFIGDISPLAYDNS, FIREWALLRULES, STARTUPFOLDERITEMS, WMIEVENTCONSUMERS, COMHIJACKINGENTRIES, DLLSEARCHORDERHIJACKS
+
+- **7 PowerShell Scripts** for expanded scanning and data gathering
+
+- **Preconfigured Artifact Collector Scan** on the Scan Types page
+  - Includes **** button for instant documentation
+
+- **Persistent Scan History Page**
+  - Records scan name, date/time, and status across sessions
+
+- **Support for .SAVE Hive Exports**
+  - Exports key registry hives into `BlueTraceReports` for offline analysis
+  - Auto-organizes into folders named `LNK`, `PREFETCH`, or `.SAVE`
+
+### 🛠 Changed
+
+- **User & Policy Guide updated** to reflect latest capabilities and workflows
+- **Interface scaled to fit any screen resolution** (including landscape/tablets)
+
+---
+---
 
 ## [2.0.0.0] – 2025-07-05
 
