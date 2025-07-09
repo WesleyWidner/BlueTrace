@@ -25,7 +25,7 @@ All notable changes to **Blue Trace** will be documented in this file.
 - **7 PowerShell Scripts** for expanded scanning and data gathering
 
 - **Preconfigured Artifact Collector Scan** on the Scan Types page
-  - Includes **** button for instant documentation
+  - Includes Correlate Artifacts button for instant documentation
 
 - **Persistent Scan History Page**
   - Records scan name, date/time, and status across sessions
