@@ -1,4 +1,4 @@
-# 🚨 Windows Forensic Artifact Collector (v2.0) 🚨
+# 🚨 Windows Forensic Artifact Collector 🚨
 
 **Blue Trace** is a modular, analyst-driven Windows artifact collector designed for digital forensics, incident response, system health, and compliance monitoring. With one click, Blue Trace extracts a comprehensive set of artifacts and system details, packaging them in structured formats for investigation, triage, and reporting.
 
