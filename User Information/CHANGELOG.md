@@ -1,12 +1,8 @@
 <div align="center">
 
----
-
 # 📑 CHANGELOG
 
 All notable changes to **Blue Trace** will be documented in this file.
-
----
 
 ---
 
@@ -55,8 +51,6 @@ Provides expert guidance across 24 different forensic/investigative scenarios:
 
 ---
 
----
-
 ## [3.0.0.0] – 2025-07-08
 
 ### ✨ Added
@@ -100,8 +94,6 @@ Auto-organizes into folders named `LNK`, `PREFETCH`, or `.SAVE`
 
 ---
 
----
-
 ## [2.0.0.0] – 2025-07-05
 
 ### ✨ Added
@@ -125,7 +117,5 @@ Auto-organizes into folders named `LNK`, `PREFETCH`, or `.SAVE`
 
 **Bug fixes:** Resolved scan module stability issues, UI glitches, and improper handling of long file paths  
 **Special characters:** Improved output handling for file and folder names with special characters
-
----
 
 </div>
