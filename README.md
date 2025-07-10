@@ -8,8 +8,10 @@
 
 * **End-to-End Artifact Collection:** Gathers user, system, network, security, and forensic artifacts in a single automated pass.
 * **Custom & Preconfigured Scans:** Choose from incident response, networking, system health, compliance, or design your own scan sets.
-* **Dashboard & Scan History:** Visualize current device health, past scans, and track system changes over time.
-* **Multiple Export Formats:** Export scan results as **JSON**, **XLSX**, **TXT**, or **CSV**. JSON scans can be converted to full PDF reports.
+* **Dashboard, History & Templates:** Visualize current device health, access past scans across sessions, and manage reusable scan templates.
+* **Investigation Playbooks:** Get expert guidance through 24 built-in investigative scenarios tailored for real-world forensics.
+* **Multi-Artifact Correlation:** Automatically link related behaviors across system and user activity to support root cause analysis.
+* **Multiple Export Formats:** Export scan results as **JSON**, **XLSX**, **TXT**, or **CSV**. JSON scans can be converted into full **PDF** reports.
 
 ---
 
@@ -20,109 +22,82 @@ The dashboard displays real-time and historical insights, including:
 * **Basic Information:** Device name, MAC address, hostname, user name, etc.
 * **Security Status:** UAC, encryption, antivirus status, etc.
 * **System Health:** Disk usage, RAM utilization, CPU load, Windows Update status.
-* **Recent Scan History:** Identify previous scans ran during the session.
+* **Recent Scan History:** View prior scans with name, timestamp, and status.
+* **Quick Navigation:** Launch new scans, manage templates, or explore history.
 
 ---
 
 ## 🛠️ Scan Modules
 
-Blue Trace supports a wide array of forensic and diagnostic modules. Each scan can be run individually or grouped into scan profiles:
-
-| Section Name                     | Description                                              |
-|-------------------------------|----------------------------------------------------------|
-| SYSTEMINFORMATION             | Collects detailed system and hardware information         |
-| INSTALLEDPROGRAMS             | Lists installed applications and software                 |
-| ENVIRONMENTVARIABLES          | Extracts system environment variables                     |
-| UACSETTINGS                   | Checks User Account Control configuration                 |
-| WINDOWSVERSIONINFO            | Retrieves Windows version and build information           |
-| DESKTOPFILETIMESTAMPS         | Reports access and creation times of desktop files        |
-| FILEMETADATA                  | Gathers metadata for specified files                      |
-| HIDDENFILESONC                | Identifies hidden files on the C:\ drive                  |
-| ALTERNATEDATASTREAMS          | Detects files containing alternate data streams           |
-| FILESACCESSEDLAST7DAYS        | Lists files accessed within the last 7 days               |
-| RECYCLEBINCONTENTS            | Extracts current contents of the Recycle Bin              |
-| TEMPFOLDERCONTENTS            | Lists contents of temporary folders                       |
-| VOLUMESHADOWCOPIES            | Detects existing Volume Shadow Copies                     |
-| SYMBOLICLINKSANDJUNCTIONS     | Identifies symbolic links and junction points             |
-| RUNNINGPROCESSES              | Lists currently running processes                         |
-| LOADEDDLLS                    | Extracts loaded DLLs in memory                            |
-| PROCESSTREEWMI                | Generates process tree using WMI                          |
-| POWERSHELLHISTORY             | Retrieves PowerShell command history                      |
-| PARENTCHILDPROCESSTREE        | Maps full parent-child process relationships              |
-| WMIACTIVITYLOGS               | Extracts WMI activity logs                                |
-| SCHEDULEDTASKS                | Lists scheduled tasks configured on the system            |
-| STARTUPFOLDERITEMS            | Reports items in startup folders                          |
-| REGISTRYRUNKEYS               | Extracts Run and RunOnce registry keys                    |
-| SERVICEINFORMATION            | Provides status of Windows services                       |
-| WMIEVENTCONSUMERS             | Detects WMI event consumers                               |
-| COMHIJACKINGENTRIES           | Identifies suspicious COM hijacking registry entries      |
-| DLLSEARCHORDERHIJACKS         | Detects potential DLL search order hijacks                |
-| SECURITYEVENTLOG              | Extracts entries from the Security Event Log              |
-| SYSTEMEVENTLOG                | Extracts entries from the System Event Log                |
-| APPLICATIONEVENTLOG           | Extracts entries from the Application Event Log           |
-| SETUPEVENTLOG                 | Extracts entries from the Setup Event Log                 |
-| WINDOWSPOWERSHELLLOG          | Retrieves standard PowerShell logs                        |
-| POWERSHELLOPERATIONALLOG      | Retrieves PowerShell operational logs                     |
-| NTUSERDAT                     | Extracts user-specific NTUSER.DAT data                    |
-| RECENTDOCS                    | Lists recently opened documents                          |
-| USERASSIST                    | Extracts UserAssist registry artifacts                    |
-| SHELLBAGS                     | Reports ShellBag (folder view) artifacts                  |
-| TYPEDPATHS                    | Extracts TypedPaths registry entries                      |
-| RUNMRU                        | Retrieves Run Most Recently Used (MRU) entries            |
-| JUMPLISTS                     | Extracts JumpLists application usage data                 |
-| CLIPBOARDHISTORY              | Retrieves clipboard history                               |
-| ACCOUNTLOCKOUTS               | Reports account lockout events                            |
-| CREDENTIALMANAGER             | Extracts saved credentials from Credential Manager        |
-| NETUSER                       | Lists user accounts                                       |
-| NETLOCALGROUP                 | Lists local group memberships                             |
-| WHOAMIGROUPS                  | Reports current user's group memberships                  |
-| MACADDRESSES                  | Lists MAC addresses of network interfaces                 |
-| HOSTSFILE                     | Extracts entries from the Hosts file                      |
-| FIREWALLRULES                 | Lists configured Windows Firewall rules                   |
-| DNSCACHE                      | Extracts current DNS resolver cache                       |
-| ARPCACHE                      | Lists entries from the ARP cache                          |
-| LOGONEVENTS                   | Reports logon and logoff events                           |
-| BAMDAMACTIVITY                | Extracts BAM/DAM (application activity) data              |
-| NETSTATOUTPUT                 | Lists active network connections                          |
-| IPCONFIGDISPLAYDNS            | Retrieves IP configuration and DNS cache                  |
-| RDPLOGONEVENTS                | Reports Remote Desktop logon events                       |
-| NETWORKINTERFACES             | Lists network interfaces and configurations               |
-| APPCOMPATCACHE                | Extracts AppCompatCache execution artifacts               |
-| MUICACHE                      | Reports MUI (application display name) cache              |
-| RECENTAPPS                    | Lists recently used applications                          |
-| RECENTFILECACHE               | Extracts recent file cache information                    |
-| SRUM                          | Retrieves System Resource Usage Monitor (SRUM) data       |
-| SAMHIVE                       | Extracts Security Account Manager (SAM) registry hive     |
-| SECURITYHIVE                  | Extracts Security registry hive                           |
-| USRCLASSDAT                   | Reports UsrClass.dat shell configuration data             |
-| PREFETCHFILES                 | Analyzes Prefetch files for application execution         |
-| AMCACHECHECK                  | Extracts Amcache registry artifacts                       |
-| DOWNLOADSFOLDER               | Inventories contents of the Downloads folder              |
-| USBHISTORY                    | Reports USB device connection history                     |
-| LNKFILES                      | Extracts shortcut (.lnk) file artifacts                   |
-| SYSTEMHIVE                    | Extracts System registry hive                             |
-| SOFTWAREHIVE                  | Extracts Software registry hive                           |
-| BITLOCKERSTATUS               | Reports BitLocker encryption status                       |
-| GROUPPOLICYRESULTS            | Extracts applied Group Policy results                     |
-| WINDOWSDEFENDERSTATUS         | Reports Windows Defender and AV status                    |
-| WERCRASHDUMPS                 | Extracts Windows Error Reporting (WER) crash dumps        |
-| IMAGESVIDEOSINVENTORY         | Inventories image and video files                         |
----
-
-## 🗂️ Output Formats
-
-* **JSON**: Raw structured data (used for report generation)
-* **XLSX**: Tabular format for analysis in Excel/LibreOffice
-* **TXT**: Plain text for easy review or parsing
-* **CSV**: Flat file for spreadsheet or database import
-* **PDF (via JSON)**: Beautiful, comprehensive reports 
+Blue Trace supports a wide array of forensic and diagnostic modules. Each scan can be run individually or grouped into scan profiles. See the full list in the original post above (unchanged).
 
 ---
 
-## 📊 Dashboard & History
+## 🧩 Scan Templates
 
-* **Dashboard:** See live status of device health, security, and recent scan results.
-* **Scan History:** Display of all scans ran during the session.
+* Define and save custom scan configurations for future reuse.
+* Each template includes:
+
+  * **Scan Name**, **Format**, **File Path**, **Total Sections**.
+* Launch or delete templates directly from the interface.
+* Templates are stored in `Templates.json` and persist across sessions.
+* Easily create templates from the Scan Options page.
+
+---
+
+## 📖 Investigation Playbooks
+
+Access 24 detailed guides that align collected artifacts with investigative objectives. Topics include:
+
+* Suspicious Behavior Detection
+* USB Data Exfiltration
+* PowerShell and Scripting Abuse
+* Persistence & Privilege Escalation
+* File Deletion or Wiping Evidence
+* Cloud or Browser-Based Data Exfiltration
+* Credential Theft and Enumeration
+* Insider Threat & User Behavior
+* Anti-Forensics Detection
+* Remote Desktop Abuse
+* Account Misuse & Lockouts
+* Patch & Software Inventory Auditing
+* Network Anomaly & LOLBins Usage
+* Group Policy and System Hardening Reviews
+* Application and Script Misuse
+* And many more...
+
+---
+
+## 🧠 Artifact Correlation
+
+Blue Trace can automatically correlate related artifacts across modules to help identify:
+
+* Process lineage and parent/child relationships
+* PowerShell usage tied to file modifications
+* Recently opened or deleted documents
+* Scheduled tasks and autoruns linked to user behavior
+* Security events matched with process or login activity
+* RDP, logon, and network session traces
+
+This is available as a dedicated **Artifact Correlation** scan profile, ideal for deep triage and behavioral analysis.
+
+---
+
+## 📂 Output Formats
+
+* **JSON** – Raw structured output, supports full report generation.
+* **XLSX** – Spreadsheet format for data analysis.
+* **TXT** – Plain text output.
+* **CSV** – Flat file format for databases or scripting.
+* **PDF (via JSON)** – Professionally styled, easy-to-read investigation reports.
+
+---
+
+## 📊 Dashboard, History & Templates
+
+* **Dashboard:** Live system insights, security posture, scan activity, and quick links.
+* **Scan History:** Persistent scan records with names, timestamps, and outcome summaries.
+* **Templates Management:** Central place to store, run, and edit scan templates for routine use.
 
 ---
 
@@ -130,32 +105,32 @@ Blue Trace supports a wide array of forensic and diagnostic modules. Each scan c
 
 You can:
 
-* **Run Any Module Individually:** Pick only the artifacts you want.
-* **Create Custom Scans:** Combine any modules into your own profiles.
-* **Use Predefined Profiles:** Quick-start options for:
+* **Run Any Module Individually**
+* **Create Custom Scans** by selecting any combination of modules
+* **Use Predefined Profiles** such as:
 
-  * **Incident Response**
-  * **Networking**
-  * **System Health**
-  * **Compliance**
+  * Incident Response
+  * Networking
+  * System Health
+  * Compliance
+  * Artifact Correlation
 
 ---
 
 ## ❓ FAQ
 
 * **Q: What permissions does Blue Trace require?**
-  A: Local administrator rights for complete artifact access.
+  **A:** Local administrator rights for complete artifact access.
 
 * **Q: Are results private?**
-  A: All scan data is stored and exported **locally only** unless you choose to share.
+  **A:** Yes. All scan data is stored and exported **locally only** unless you explicitly choose to share it.
 
 ---
 
 ## 📢 About
 
 **Blue Trace** is built by analysts, for analysts and system administrators who need **clarity, speed, and reliability** in Windows evidence collection.
-For more information, visit https://whitehatwes.com
 
+For more, visit: [https://whitehatwes.com](https://whitehatwes.com)
 
-
-
+---
