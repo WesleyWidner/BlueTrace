@@ -64,6 +64,7 @@ Documents\
 * For best results, do **not** rename or move the `BlueTraceReports` folder after scan creation.
 
 ---
+## Report Format
 
 <img width="819" height="1058" alt="image" src="https://github.com/user-attachments/assets/2b30aa25-3d85-4bf3-927c-9897269b63e8" />
 
