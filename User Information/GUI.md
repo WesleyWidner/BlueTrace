@@ -5,7 +5,7 @@
 
 ---
 <h2 align="center">Dashboard</h2>
-<img width="1914" height="1064" alt="image" src="https://github.com/user-attachments/assets/c4f26184-a58e-4baa-90ba-ea26d337371b" />
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/c9ba12d2-3585-4777-bb4c-b2255e4e0da5" />
 
 ----
 <h2 align="center">Scan Options</h2>
