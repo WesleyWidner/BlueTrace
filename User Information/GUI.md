@@ -40,6 +40,14 @@
 <img width="1919" height="1071" alt="Screenshot 2025-07-10 082859" src="https://github.com/user-attachments/assets/d2fbd987-7b18-4358-a6e7-e04af542e75f" />
 
 ---
+<h2 align="center">CVEs</h2>
+<img width="1905" height="1026" alt="image" src="https://github.com/user-attachments/assets/15206ce2-1d2e-4ef3-99db-eabf47487181" />
+
+---
+<h2 align="center">CVEs Pop Up Window</h2>
+<img width="1919" height="1076" alt="Screenshot 2025-07-23 144934" src="https://github.com/user-attachments/assets/9107aeb3-b458-4aad-b051-83652ee58765" />
+
+---
 <h2 align="center">System Report Generator</h2>
 <img width="1915" height="1076" alt="image" src="https://github.com/user-attachments/assets/baaefa10-e653-46dc-b6ac-9bcf496d3bde" />
 
